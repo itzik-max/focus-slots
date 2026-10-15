@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>לוח סלוטי מיקוד</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0a08'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23d4a94f' stroke-width='3'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Heebo,Arial,sans-serif' font-weight='700' font-size='18' fill='%23d4a94f'%3EOZ%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap">
+<style>
+/* Itzik Oz brand: warm black + gold, Heebo. Light = cream paper, dark = cockpit black. */
+:root{
+  --bg:#f4efe4; --surface:#fffdf8; --sunk:#eee6d4; --ink:#17140f; --muted:#6f6656; --line:#e4dccb; --line-strong:#d0c5ad;
+  --gold:#976b17; --gold-hi:#b88a2f; --gold-ink:#fffdf8; --gold-soft:#f1e5c8; --gold-line:rgba(168,120,31,.34);
+  --head-bg:#17140f; --head-ink:#e9cf94; --head-muted:#b9ad94;
+  --danger:#b42a2a; --danger-soft:#f7e0dc; --warn:#8a5a00;
+  --c0:#2a78d6; --c1:#c45a2a; --c2:#14946a; --c3:#4a3aa7; --c4:#a8781f; --c5:#c4507f; --c6:#c43a3a; --c7:#007a00;
+  --font:"Heebo","Segoe UI",Arial,sans-serif;
+  --r:10px; --shadow:0 1px 2px rgb(23 20 15 / .06),0 8px 28px rgb(23 20 15 / .08);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b0a08; --surface:#14120e; --sunk:#1b1813; --ink:#f6f1e7; --muted:#9a917f; --line:#26221b; --line-strong:#3a342b;
+  --gold:#d4a94f; --gold-hi:#f0d595; --gold-ink:#0b0a08; --gold-soft:#2a2316; --gold-line:rgba(212,169,79,.34);
+  --head-bg:#080705; --head-ink:#e9cf94; --head-muted:#8a8272;
+  --danger:#ef6b6b; --danger-soft:#3a1c1a; --warn:#f2b53a;
+  --c0:#5b9bea; --c1:#e2774a; --c2:#2fbf8a; --c3:#9a8ff0; --c4:#d4a94f; --c5:#e07aa4; --c6:#ec7070; --c7:#4fbf4f;
+  --shadow:0 1px 2px rgb(0 0 0 / .4),0 10px 30px rgb(0 0 0 / .45); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b0a08; --surface:#14120e; --sunk:#1b1813; --ink:#f6f1e7; --muted:#9a917f; --line:#26221b; --line-strong:#3a342b;
+  --gold:#d4a94f; --gold-hi:#f0d595; --gold-ink:#0b0a08; --gold-soft:#2a2316; --gold-line:rgba(212,169,79,.34);
+  --head-bg:#080705; --head-ink:#e9cf94; --head-muted:#8a8272;
+  --danger:#ef6b6b; --danger-soft:#3a1c1a; --warn:#f2b53a;
+  --c0:#5b9bea; --c1:#e2774a; --c2:#2fbf8a; --c3:#9a8ff0; --c4:#d4a94f; --c5:#e07aa4; --c6:#ec7070; --c7:#4fbf4f;
+  --shadow:0 1px 2px rgb(0 0 0 / .4),0 10px 30px rgb(0 0 0 / .45); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5}
+[hidden]{display:none!important}
+#app{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px;display:flex;flex-direction:column;gap:14px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* masthead */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);padding-block:14px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;border-bottom:1px solid var(--gold-line)}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;flex:none;border-radius:11px;background:var(--head-bg);display:grid;place-items:center}
+.logo span{width:32px;height:32px;border:2px solid #d4a94f;border-radius:50%;display:grid;place-items:center;color:#d4a94f;font-weight:800;font-size:12.5px;letter-spacing:.5px}
+.brand h1{margin:0;font-weight:800;font-size:22px;line-height:1.1;letter-spacing:-.2px}
+.brand small{display:block;font-size:11px;color:var(--gold);font-weight:600;letter-spacing:1.8px;margin-top:3px}
+.monthnav{display:flex;align-items:center;gap:6px;margin-inline-start:auto}
+.monthnav .lbl{text-align:center;padding-inline:8px;min-width:132px}
+.monthnav .lbl b{font-weight:800;font-size:19px;display:block;line-height:1.2}
+.monthnav .lbl span{font-size:12px;color:var(--muted)}
+.btn{border:1px solid var(--line-strong);background:var(--surface);border-radius:var(--r);padding:7px 12px;font-weight:500;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{border-color:var(--gold)}
+.btn.icon{padding:7px 10px}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--gold-ink);font-weight:700}
+.btn.primary:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.btn.danger{color:var(--danger);border-color:color-mix(in oklab,var(--danger) 45%,transparent)}
+.btn.danger:hover{background:var(--danger-soft)}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.who{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px}
+.who .dot{width:10px;height:10px;border-radius:50%;background:var(--cc,var(--gold))}
+.who .role{font-size:12px;color:var(--muted)}
+
+.banner{border:1px solid var(--line-strong);background:var(--surface);border-radius:var(--r);padding:12px 14px}
+.banner.warn{border-color:color-mix(in oklab,var(--warn) 50%,transparent)}
+.banner p{margin:0}
+
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--head-bg);overflow-x:auto;padding-top:2px}
+.tab{flex:none;border:1px solid var(--line-strong);border-bottom:none;background:var(--sunk);border-radius:9px 9px 0 0;padding:7px 16px 6px;display:flex;flex-direction:column;align-items:center;line-height:1.2;color:var(--ink)}
+.tab b{font-weight:700}
+.tab small{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tab:hover{background:var(--gold-soft)}
+.tab[aria-selected="true"]{background:var(--head-bg);color:var(--head-ink);border-color:var(--head-bg)}
+.tab[aria-selected="true"] small{color:var(--head-muted)}
+.tab.cur:not([aria-selected="true"]) b::after{content:" •";color:var(--gold)}
+.tab.sum{margin-inline-start:auto;background:var(--gold-soft);border-color:var(--gold-line)}
+.tab.sum[aria-selected="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.tab.sum[aria-selected="true"] small{color:color-mix(in oklab,var(--gold-ink) 75%,transparent)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar .sep{flex:1 1 auto}
+.toolbar .hint{font-size:12.5px;color:var(--muted)}
+.field{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+select,input[type=text],input[type=tel],input[type=password],textarea{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r);padding:8px 10px;min-width:0}
+textarea{resize:vertical;min-height:64px;width:100%}
+
+/* stats row */
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,2.6fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.kpi{background:var(--surface);padding:12px 14px}
+.kpi .k{font-size:12px;color:var(--muted);letter-spacing:.3px}
+.kpi .v{font-weight:800;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:14px;color:var(--muted);font-weight:500;margin-inline-start:2px}
+.kpi.booked .v{color:var(--gold)}
+.per{background:var(--surface);padding:10px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px 18px;align-content:center}
+.per .row{display:grid;grid-template-columns:minmax(0,auto) 1fr auto;align-items:center;gap:8px;font-size:13px;min-width:0}
+.nmc{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.nmc i{width:9px;height:9px;border-radius:50%;background:var(--cc);flex:none}
+.bar{height:6px;border-radius:3px;background:var(--sunk);overflow:hidden;display:flex;min-width:30px}
+.bar .b{background:var(--cc,var(--gold))}
+.bar .o{background:color-mix(in oklab,var(--cc,var(--gold)) 28%,transparent)}
+.per .cnt,.cnt{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fchip{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:4px 10px 4px 12px;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.fchip i{width:9px;height:9px;border-radius:50%;background:var(--cc,var(--muted))}
+.fchip[aria-pressed="true"]{background:color-mix(in oklab,var(--cc,var(--gold)) 16%,var(--surface));border-color:var(--cc,var(--gold));font-weight:600}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-inline-start:auto;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:22px;height:12px;border-radius:3px;border:1.5px solid var(--muted)}
+.legend .sw.b{background:var(--muted)}
+
+.daytabs{display:none;gap:4px;overflow-x:auto}
+.daytabs button{flex:1 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:6px 10px;font-size:13px;display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.daytabs button[aria-selected="true"]{background:var(--head-bg);color:var(--head-ink);border-color:var(--head-bg)}
+.daytabs small{font-size:11px;opacity:.75}
+
+/* grid */
+.gridwrap{overflow-x:auto;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow)}
+.grid{display:grid;min-width:0}
+.dh{position:sticky;top:0;background:var(--head-bg);color:var(--head-ink);padding:8px 10px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-height:44px}
+.dh b{font-weight:700}
+.dh span{font-size:12px;color:var(--head-muted);font-variant-numeric:tabular-nums}
+.dh.today{background:#d4a94f;color:#0b0a08}
+.dh.today span{color:#3a2c0e}
+.dh .mini{margin-inline-start:auto;font-size:11px;border:1px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:1px 8px;opacity:.85}
+.dh .mini:hover{opacity:1}
+.tc{border-top:1px solid var(--line);border-inline-start:1px solid var(--line-strong);padding:8px;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;color:var(--muted);display:flex;align-items:flex-start;justify-content:center}
+.tc.hour{color:var(--ink)}
+.corner{background:var(--head-bg)}
+.cell{border-top:1px solid var(--line);border-inline-start:1px solid var(--line);padding:5px;display:flex;flex-direction:column;gap:4px;min-height:44px;min-width:0}
+.cell.hourline,.tc.hourline{border-top-color:var(--line-strong)}
+.cell.past{background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in oklab,var(--sunk) 75%,transparent) 6px 7px)}
+.cell.todaycol{background-color:color-mix(in oklab,var(--gold-soft) 50%,transparent)}
+.cw{display:flex;gap:3px;min-width:0}
+.chip{--cc:var(--muted);flex:1;display:flex;align-items:center;gap:6px;text-align:start;border:1.5px solid var(--cc);background:color-mix(in oklab,var(--cc) 9%,var(--surface));border-radius:7px;padding:3px 7px;font-size:12.5px;line-height:1.25;min-width:0}
+.chip .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.chip .sub{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1;font-size:11.5px}
+.chip .ck{flex:none;width:15px;height:15px;border-radius:4px;border:1.5px solid var(--cc);display:grid;place-items:center;font-size:11px;line-height:1;background:var(--surface)}
+.chip.booked{background:var(--cc);color:var(--surface)}
+.chip.booked .sub{color:color-mix(in oklab,var(--surface) 82%,transparent)}
+.chip.booked .ck{background:var(--surface);color:var(--cc);border-color:var(--surface)}
+.chip.mine{box-shadow:0 0 0 2px color-mix(in oklab,var(--cc) 30%,transparent)}
+.chip:hover{filter:brightness(1.05)}
+.chip:not(.booked):hover .ck::after{content:"✓";color:var(--cc)}
+.chip.busy{opacity:.55;pointer-events:none}
+.chip.dim{opacity:.4}
+.x{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:7px;width:22px;font-size:13px;line-height:1;padding:0}
+.x:hover{color:var(--danger);border-color:var(--danger)}
+.add{border:1.5px dashed var(--line-strong);background:transparent;border-radius:7px;padding:3px 7px;font-size:12px;color:var(--muted);text-align:start;opacity:0;transition:opacity .12s}
+.cell:hover .add,.add:focus-visible{opacity:1}
+@media (hover:none){.add{opacity:.7}}
+.add:hover{border-color:var(--gold);color:var(--gold)}
+.empty-state{padding:36px 20px;text-align:center;color:var(--muted)}
+.empty-state h2{font-weight:800;color:var(--ink);margin:0 0 6px;font-size:22px}
+
+/* monthly summary */
+.mgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;min-width:0}
+.panel h2{font-weight:800;font-size:17px;margin:0;padding:12px 14px 8px}
+.tblwrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{font-weight:500;color:var(--muted);font-size:12px;text-align:start;padding:6px 14px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+.tbl td{padding:8px 14px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.n,.tbl th.n{text-align:center}
+.tbl tfoot td{font-weight:700;border-bottom:none;background:var(--sunk)}
+.tbl tr.link{cursor:pointer}
+.tbl tr.link:hover td{background:var(--gold-soft)}
+.tbl .bar{width:100%;min-width:70px;height:8px;border-radius:4px}
+.tbl .pct{font-weight:700;color:var(--gold)}
+
+/* dialog */
+dialog{border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);padding:0;width:min(460px,calc(100vw - 32px));box-shadow:var(--shadow)}
+dialog::backdrop{background:rgb(8 7 5 / .55)}
+.dlg{display:flex;flex-direction:column;gap:14px;padding:18px 18px 16px}
+.dlg h3{margin:0;font-weight:800;font-size:20px;line-height:1.25;text-wrap:balance}
+.dlg .meta{color:var(--muted);font-size:13px;margin-top:-8px}
+.dlg label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.dlg label > input,.dlg label > select{color:var(--ink)}
+.dlg .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dlg .acts{display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
+.dlg .acts .sp{flex:1}
+.dlg .err{color:var(--danger);font-size:13px;margin:0}
+.dlg .note{font-size:13px;color:var(--muted);margin:0}
+.dlg .gate{display:flex;align-items:center;gap:12px}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.pick button{border:1.5px solid var(--cc);background:color-mix(in oklab,var(--cc) 10%,var(--surface));border-radius:var(--r);padding:10px;font-weight:600;display:flex;align-items:center;gap:8px;text-align:start}
+.pick button i{width:10px;height:10px;border-radius:50%;background:var(--cc);flex:none}
+.divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.list{display:flex;flex-direction:column;gap:6px}
+.list .li{display:flex;gap:8px;align-items:center}
+.list .li i{width:12px;height:12px;border-radius:50%;background:var(--cc);flex:none}
+.list .li input{flex:1}
+.addrow{display:flex;gap:8px}
+.addrow input{flex:1}
+.sec{font-weight:700;color:var(--ink);font-size:14px;margin:0}
+
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--head-bg);color:#f6f1e7;border:1px solid var(--gold-line);padding:8px 8px 8px 16px;border-radius:999px;font-size:13.5px;box-shadow:var(--shadow);z-index:20;max-width:calc(100vw - 32px);display:flex;align-items:center;gap:6px}
+.toast span{padding-inline:8px 4px}
+.toast button{border:none;background:rgba(212,169,79,.2);color:#e9cf94;border-radius:999px;padding:4px 12px;font-weight:700}
+
+@media (max-width:900px){.mgrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:720px){
+  .summary{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .per{grid-column:1/-1}
+  .kpi{padding:10px}
+  .kpi .v{font-size:21px}
+  .monthnav{margin-inline-start:0;width:100%;justify-content:space-between}
+  .daytabs{display:flex}
+  .legend{display:none}
+  .tab{padding:6px 11px 5px}
+  .brand h1{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><span>OZ</span></div>
+      <div><h1>לוח סלוטי מיקוד</h1><small>איציק עוז · יועצות עסקיות</small></div>
+    </div>
+    <div id="who"></div>
+    <nav class="monthnav" aria-label="מעבר בין חודשים">
+      <button class="btn icon" id="prevMonth" aria-label="החודש הקודם">→</button>
+      <div class="lbl" id="monthLbl"></div>
+      <button class="btn icon" id="nextMonth" aria-label="החודש הבא">←</button>
+      <button class="btn" id="thisMonth">היום</button>
+      <button class="btn icon" id="themeBtn" aria-label="החלפת מצב בהיר/כהה" title="מצב בהיר/כהה">◐</button>
+    </nav>
+  </header>
+  <div id="banner"></div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="שבועות החודש"></div>
+
+  <section id="weekView" style="display:flex;flex-direction:column;gap:14px">
+    <section class="summary" id="summary" aria-label="סיכום השבוע"></section>
+    <div class="toolbar" id="toolbar"></div>
+    <div class="filters" id="filters"></div>
+    <div class="daytabs" id="daytabs" role="tablist"></div>
+    <div class="gridwrap"><div class="grid" id="grid"></div></div>
+  </section>
+
+  <section id="monthView" hidden style="display:flex;flex-direction:column;gap:14px"></section>
+</div>
+
+<dialog id="dlg"><form class="dlg" id="dlgBody" method="dialog"></form></dialog>
+<div class="toast" id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script>
+const DAY_NAMES = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+const PALETTE = 8;
+const POLL_MS = 15000;
+const DEFAULT_CFG = { consultants: [], locations: [], start: '09:00', end: '16:00', step: 30, days: [0,1,2,3,4] };
+const CONF = window.FS_CONFIG || {};
+
+/* storage is best effort: private windows can refuse it */
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} }
+};
+
+const S = {
+  code: store.get('fs-code'), role: null,
+  cfg: { ...DEFAULT_CFG }, ready: false,
+  slots: new Map(), loading: false, loadSeq: 0,
+  month: firstOfMonth(new Date()),
+  tab: null,
+  me: JSON.parse(store.get('fs-me') || 'null'),
+  filter: { cons: new Set(), loc: '', openOnly: false },
+  day: new Date().getDay(),
+  newLoc: '', busy: new Set()
+};
+
+/* ---------- helpers ---------- */
+function pad(n) { return String(n).padStart(2, '0'); }
+function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function parseYmd(s) { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); }
+function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate() + n); return x; }
+function startOfWeek(d) { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - x.getDay()); return x; }
+function firstOfMonth(d) { return new Date(d.getFullYear(), d.getMonth(), 1); }
+function lastOfMonth(d) { return new Date(d.getFullYear(), d.getMonth() + 1, 0); }
+function ddmm(d) { return d.getDate() + '.' + (d.getMonth() + 1); }
+function todayYmd() { return ymd(new Date()); }
+function toMin(t) { const [h, m] = t.split(':').map(Number); return h * 60 + m; }
+function fromMin(m) { return pad(Math.floor(m / 60)) + ':' + pad(m % 60); }
+function timesList() {
+  const out = [], a = toMin(S.cfg.start), b = toMin(S.cfg.end), st = S.cfg.step || 30;
+  for (let m = a; m <= b; m += st) out.push(fromMin(m));
+  return out;
+}
+function slotId(date, time, cid) { return date + '_' + time.replace(':', '') + '_' + cid; }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function cons(id) { return S.cfg.consultants.find(c => c.id === id); }
+function consColor(id) { const c = cons(id); return c ? 'var(--c' + (c.color % PALETTE) + ')' : 'var(--muted)'; }
+function consName(id, fallback) { return cons(id)?.name || fallback || 'יועצת שהוסרה'; }
+function isPast(date, time) {
+  const now = new Date(), d = parseYmd(date);
+  if (time) { const m = toMin(time); d.setHours(Math.floor(m / 60), m % 60); }
+  else d.setHours(23, 59);
+  return d < now;
+}
+function saveMe(me) { S.me = me; store.set('fs-me', me ? JSON.stringify(me) : null); }
+function isConsultant() { return S.me?.role === 'consultant' && !!cons(S.me.id); }
+function signedIn() { return !!S.role; }
+function newId() { return 'c' + Math.random().toString(36).slice(2, 8); }
+function pct(b, t) { return t ? Math.round(b / t * 100) : 0; }
+
+function monthWeeks() {
+  const m = S.month.getMonth(), last = lastOfMonth(S.month), out = [];
+  for (let ws = startOfWeek(S.month); ws <= last; ws = addDays(ws, 7)) {
+    const dates = S.cfg.days.map(i => addDays(ws, i)).filter(d => d.getMonth() === m);
+    if (dates.length) out.push({ start: ws, dates });
+  }
+  return out;
+}
+function curWeek() { const w = monthWeeks(); return typeof S.tab === 'number' ? w[Math.min(S.tab, w.length - 1)] : null; }
+function defaultTab() {
+  const t = todayYmd(), ws = monthWeeks();
+  const i = ws.findIndex(w => ymd(w.start) <= t && t <= ymd(addDays(w.start, 6)));
+  return i >= 0 ? i : 0;
+}
+function inMonth(s) { const d = parseYmd(s.date); return d.getMonth() === S.month.getMonth() && S.cfg.days.includes(d.getDay()); }
+function count(list) {
+  const b = list.filter(s => s.status === 'booked').length;
+  return { t: list.length, b, o: list.length - b, p: pct(b, list.length) };
+}
+
+let toastT;
+function toast(msg, actions) {
+  const t = document.getElementById('toast');
+  t.innerHTML = '<span></span>'; t.firstChild.textContent = msg;
+  (actions || []).forEach(a => {
+    const b = document.createElement('button'); b.textContent = a.label;
+    b.onclick = () => { t.hidden = true; a.fn(); }; t.appendChild(b);
+  });
+  t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => (t.hidden = true), actions ? 6000 : 3200);
+}
+function errMsg(e) {
+  if (e && e.userMsg) return e.userMsg;
+  if (e?.message === 'bad_code') return 'קוד הכניסה לא נכון.';
+  if (e?.network) return 'אין חיבור לשרת. בדקו את האינטרנט ונסו שוב.';
+  return 'הפעולה לא נשמרה. נסו שוב.';
+}
+
+/* ---------- API (Supabase RPC) ---------- */
+async function rpc(fn, args) {
+  let r;
+  try {
+    r = await fetch(CONF.url.replace(/\/$/, '') + '/rest/v1/rpc/' + fn, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', apikey: CONF.key }, body: JSON.stringify(args)
+    });
+  } catch { throw { network: true }; }
+  const text = await r.text();
+  const body = text ? JSON.parse(text) : null;
+  if (!r.ok) {
+    const err = { message: body?.message || 'error', status: r.status };
+    if (err.message === 'bad_code') onBadCode();
+    throw err;
+  }
+  return body;
+}
+function onBadCode() {
+  S.code = null; S.role = null; store.set('fs-code', null);
+  setTimeout(codeDialog);
+}
+
+async function load() {
+  if (!S.code) return;
+  const seq = ++S.loadSeq;
+  const res = await rpc('fs_load', { p_code: S.code, p_from: ymd(S.month), p_to: ymd(lastOfMonth(S.month)) });
+  if (seq !== S.loadSeq) return;
+  S.cfg = { ...DEFAULT_CFG, ...(res.config || {}) };
+  S.slots = new Map(res.slots.map(s => [s.id, s]));
+  S.ready = true;
+  if (S.me?.role === 'consultant' && !cons(S.me.id)) saveMe(null);
+  render();
+}
+function refresh() { return load().catch(e => { console.warn(e); if (e?.network) setBanner('אין חיבור לשרת. הנתונים יתעדכנו כשהחיבור יחזור.', 'warn'); }); }
+
+async function addSlots(list) {
+  return rpc('fs_add_slots', { p_code: S.code, p_slots: list.map(s => ({ date: s.date, time: s.time, consultantId: s.consultantId, consultantName: consName(s.consultantId), location: s.location || '' })) });
+}
+async function markBooked(id, fields, isEdit) {
+  const res = await rpc('fs_book', { p_code: S.code, p_id: id, p_by: S.me?.name || '', p_name: fields.name || '', p_phone: fields.phone || '',
+    p_notes: fields.notes || '', p_location: fields.location ?? null, p_edit: !!isEdit });
+  if (!res.ok) throw { userMsg: res.reason === 'gone' ? 'היועצת הסירה את הסלוט הזה בינתיים.' : 'הסלוט כבר נתפס על ידי ' + (res.by || 'מישהו אחר') + '.' };
+}
+async function markOpen(id) { await rpc('fs_unbook', { p_code: S.code, p_id: id }); }
+
+async function quickBook(id) {
+  const s = S.slots.get(id); if (!s) return;
+  S.busy.add(id); S.slots.set(id, { ...s, status: 'booked', bookedBy: S.me?.name || '', client: { name: '', phone: '', notes: '' } }); render();
+  try {
+    await markBooked(id, {}, false);
+    toast('סומן כנתפס', [{ label: 'הוספת פרטים', fn: () => slotDialog(id) }, { label: 'ביטול', fn: () => markOpen(id).then(refresh).catch(e => toast(errMsg(e))) }]);
+  } catch (e) { S.slots.set(id, s); toast(errMsg(e)); }
+  finally { S.busy.delete(id); await refresh(); }
+}
+
+/* ---------- render ---------- */
+function setBanner(html, kind) {
+  document.getElementById('banner').innerHTML = html ? '<div class="banner ' + (kind || '') + '"><p>' + html + '</p></div>' : '';
+}
+
+function render() {
+  const weeks = monthWeeks();
+  if (S.tab === null || (typeof S.tab === 'number' && S.tab >= weeks.length)) S.tab = defaultTab();
+  renderWho(); renderMonthLbl(); renderTabs(weeks);
+  if (!CONF.url || !CONF.key) setBanner('האתר עוד לא מחובר למסד הנתונים. צריך למלא את הקובץ config.js.', 'warn');
+  else if (S.code) setBanner('');
+  const sum = S.tab === 'sum';
+  document.getElementById('weekView').hidden = sum;
+  document.getElementById('monthView').hidden = !sum;
+  if (sum) renderMonth(weeks);
+  else { renderSummary(); renderToolbar(); renderFilters(); renderDayTabs(); renderGrid(); }
+}
+
+function renderWho() {
+  const el = document.getElementById('who');
+  if (!signedIn()) { el.innerHTML = ''; return; }
+  if (!S.me) { el.innerHTML = '<button class="btn" data-act="who">בחרו מי אתם</button>'; return; }
+  const consultant = isConsultant();
+  el.innerHTML = '<div class="who" style="--cc:' + (consultant ? consColor(S.me.id) : 'var(--gold)') + '"><i class="dot"></i><div><div>' +
+    esc(consultant ? consName(S.me.id) : S.me.name) + '</div><div class="role">' + (consultant ? 'יועצת עסקית' : 'תיאום ומכירות') +
+    '</div></div><button class="btn ghost" data-act="who">החלפה</button></div>';
+}
+
+function renderMonthLbl() {
+  const cur = ymd(S.month) === ymd(firstOfMonth(new Date()));
+  document.getElementById('monthLbl').innerHTML = '<b>' + MONTHS[S.month.getMonth()] + ' ' + S.month.getFullYear() + '</b><span>' + (cur ? 'החודש הנוכחי' : '&nbsp;') + '</span>';
+}
+
+function renderTabs(weeks) {
+  const t = todayYmd();
+  document.getElementById('tabs').innerHTML = weeks.map((w, i) => {
+    const a = w.dates[0], b = w.dates[w.dates.length - 1];
+    const cur = ymd(w.start) <= t && t <= ymd(addDays(w.start, 6));
+    return '<button class="tab' + (cur ? ' cur' : '') + '" role="tab" data-act="tab" data-tab="' + i + '" aria-selected="' + (S.tab === i) + '"><b>שבוע ' + (i + 1) + '</b><small>' +
+      (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + '</small></button>';
+  }).join('') + '<button class="tab sum" role="tab" data-act="tab" data-tab="sum" aria-selected="' + (S.tab === 'sum') + '"><b>סיכום חודשי</b><small>' + MONTHS[S.month.getMonth()] + '</small></button>';
+}
+
+function weekSlotList(w) { const set = new Set(w.dates.map(ymd)); return [...S.slots.values()].filter(s => set.has(s.date)); }
+
+function perConsultant(list) {
+  const per = new Map(S.cfg.consultants.map(c => [c.id, { b: 0, o: 0, name: c.name }]));
+  for (const s of list) {
+    if (!per.has(s.consultantId)) per.set(s.consultantId, { b: 0, o: 0, name: s.consultantName });
+    const p = per.get(s.consultantId); s.status === 'booked' ? p.b++ : p.o++;
+  }
+  return per;
+}
+function kpi(k, v, cls) { return '<div class="kpi ' + (cls || '') + '"><div class="k">' + k + '</div><div class="v num">' + v + '</div></div>'; }
+
+function renderSummary() {
+  const w = curWeek(); if (!w) return;
+  const list = weekSlotList(w), c = count(list), per = perConsultant(list);
+  const max = Math.max(1, ...[...per.values()].map(p => p.b + p.o));
+  const rows = [...per].map(([id, p]) => {
+    const t = p.b + p.o;
+    return '<div class="row" style="--cc:' + consColor(id) + '"><span class="nmc"><i></i>' + esc(consName(id, p.name)) +
+      '</span><span class="bar" title="' + p.b + ' נתפסו מתוך ' + t + '"><span class="b" style="width:' + (p.b / max * 100) + '%"></span><span class="o" style="width:' + (p.o / max * 100) + '%"></span></span><span class="cnt">' + p.b + '/' + t + '</span></div>';
+  }).join('');
+  document.getElementById('summary').innerHTML =
+    kpi('סלוטים', c.t) + kpi('פנויים', c.o) + kpi('נתפסו', c.b, 'booked') + kpi('אחוז תפוסה', c.p + '<small>%</small>') +
+    '<div class="per">' + (rows || '<span class="cnt">' + (S.ready ? 'אין עדיין יועצות בלוח.' : 'טוען…') + '</span>') + '</div>';
+}
+
+function renderToolbar() {
+  const el = document.getElementById('toolbar'), parts = [];
+  if (isConsultant()) {
+    if (S.cfg.locations.length) {
+      parts.push('<label class="field" for="newLoc">מיקום לסלוטים חדשים <select id="newLoc"><option value="">ללא</option>' +
+        S.cfg.locations.map(l => '<option' + (l === S.newLoc ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select></label>');
+    }
+    parts.push('<button class="btn" data-act="copyPrev">העתקת הסלוטים שלי מהשבוע הקודם</button>');
+    parts.push('<button class="btn danger" data-act="clearWeek">ניקוי הסלוטים הפנויים שלי</button>');
+  } else if (S.me) {
+    parts.push('<button class="btn" data-act="copyPrev">העתקת כל הסלוטים מהשבוע הקודם</button>');
+  }
+  if (S.me) parts.push('<span class="hint">לחיצה על סלוט פנוי מסמנת אותו כנתפס. לחיצה על סלוט שנתפס פותחת את הפרטים.</span>');
+  parts.push('<span class="sep"></span>');
+  if (signedIn()) parts.push('<button class="btn" data-act="settings">הגדרות</button>');
+  el.innerHTML = parts.join('');
+}
+
+function renderFilters() {
+  const el = document.getElementById('filters');
+  if (!S.cfg.consultants.length) { el.innerHTML = ''; return; }
+  let h = S.cfg.consultants.map(c => '<button class="fchip" data-act="fcons" data-id="' + c.id + '" aria-pressed="' + S.filter.cons.has(c.id) + '" style="--cc:var(--c' + (c.color % PALETTE) + ')"><i></i>' + esc(c.name) + '</button>').join('');
+  h += '<button class="fchip" data-act="fopen" aria-pressed="' + S.filter.openOnly + '">רק פנויים</button>';
+  if (S.cfg.locations.length) h += '<select id="fLoc" aria-label="סינון לפי מיקום"><option value="">כל המיקומים</option>' + S.cfg.locations.map(l => '<option' + (l === S.filter.loc ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select>';
+  h += '<div class="legend"><span><i class="sw"></i>פנוי</span><span><i class="sw b"></i>נתפס</span></div>';
+  el.innerHTML = h;
+}
+
+function narrow() { return matchMedia('(max-width:720px)').matches; }
+
+function renderDayTabs() {
+  const el = document.getElementById('daytabs'), w = curWeek(); if (!w) return;
+  if (!w.dates.some(d => d.getDay() === S.day)) {
+    const t = w.dates.find(d => ymd(d) === todayYmd()); S.day = (t || w.dates[0]).getDay();
+  }
+  const t = todayYmd();
+  el.innerHTML = w.dates.map(d => '<button role="tab" data-act="day" data-day="' + d.getDay() + '" aria-selected="' + (d.getDay() === S.day) + '">' +
+    (ymd(d) === t ? 'היום' : DAY_NAMES[d.getDay()]) + '<small class="num">' + ddmm(d) + '</small></button>').join('');
+}
+
+function cellSlots(date, time) {
+  const out = [];
+  for (const [id, s] of S.slots) if (s.date === date && s.time === time) out.push([id, s]);
+  const idx = id => { const i = S.cfg.consultants.findIndex(c => c.id === id); return i < 0 ? 99 : i; };
+  return out.sort((a, b) => idx(a[1].consultantId) - idx(b[1].consultantId));
+}
+function passes(s) {
+  if (S.filter.cons.size && !S.filter.cons.has(s.consultantId)) return false;
+  if (S.filter.openOnly && s.status === 'booked') return false;
+  if (S.filter.loc && s.location !== S.filter.loc) return false;
+  return true;
+}
+
+function renderGrid() {
+  const el = document.getElementById('grid');
+  if (S.ready && !S.cfg.consultants.length) {
+    el.style.gridTemplateColumns = '1fr';
+    el.innerHTML = '<div class="empty-state"><h2>עוד אין יועצות בלוח</h2><p>מנהל הלוח מוסיף יועצות דרך "הגדרות".</p></div>';
+    return;
+  }
+  const w = curWeek(); if (!w) return;
+  const dates = narrow() ? w.dates.filter(d => d.getDay() === S.day) : w.dates;
+  const times = timesList(), t = todayYmd();
+  const me = isConsultant() ? S.me.id : null;
+  el.style.gridTemplateColumns = '58px repeat(' + dates.length + ', minmax(' + (narrow() ? '0' : '150px') + ', ' + (dates.length < 3 ? '320px' : '1fr') + '))';
+  let h = '<div class="dh corner"></div>';
+  for (const d of dates) {
+    const ds = ymd(d);
+    h += '<div class="dh' + (ds === t ? ' today' : '') + '"><b>יום ' + DAY_NAMES[d.getDay()] + '</b><span>' + ddmm(d) + '</span>' +
+      (me && !isPast(ds) ? '<button class="mini" data-act="openDay" data-date="' + ds + '" title="פתיחת סלוטים בכל שעות היום">כל היום</button>' : '') + '</div>';
+  }
+  for (const tm of times) {
+    const hl = tm.endsWith(':00') ? ' hourline' : '';
+    h += '<div class="tc' + (hl ? ' hour' : '') + hl + '">' + tm + '</div>';
+    for (const d of dates) {
+      const ds = ymd(d), past = isPast(ds, tm);
+      let inner = '', hasMine = false;
+      for (const [id, s] of cellSlots(ds, tm)) {
+        if (s.consultantId === me) hasMine = true;
+        if (!passes(s)) continue;
+        const booked = s.status === 'booked';
+        const name = consName(s.consultantId, s.consultantName);
+        const sub = booked ? (s.client?.name || '') : (s.location || '');
+        const label = name + ' · ' + tm + ' · ' + (booked ? 'נתפס' + (sub ? ' – ' + sub : '') : 'פנוי, לחצו לסימון כנתפס');
+        inner += '<div class="cw"><button class="chip' + (booked ? ' booked' : '') + (s.consultantId === me ? ' mine' : '') + (past && !booked ? ' dim' : '') + (S.busy.has(id) ? ' busy' : '') +
+          '" data-act="slot" data-id="' + esc(id) + '" style="--cc:' + consColor(s.consultantId) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '"><span class="ck">' + (booked ? '✓' : '') + '</span><span class="nm">' +
+          esc(name) + '</span>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') + '</button>' +
+          (s.consultantId === me && !booked ? '<button class="x" data-act="remove" data-id="' + esc(id) + '" title="הסרת הסלוט" aria-label="הסרת הסלוט">×</button>' : '') + '</div>';
+      }
+      if (me && !past && !hasMine) inner += '<button class="add" data-act="add" data-date="' + ds + '" data-time="' + tm + '">+ פתיחת סלוט</button>';
+      h += '<div class="cell' + (past ? ' past' : '') + (ds === t ? ' todaycol' : '') + hl + '">' + inner + '</div>';
+    }
+  }
+  el.innerHTML = h;
+}
+
+function renderMonth(weeks) {
+  const all = [...S.slots.values()].filter(inMonth), c = count(all), per = perConsultant(all);
+  const max = Math.max(1, ...[...per.values()].map(p => p.b + p.o));
+  const crow = [...per].map(([id, p]) => {
+    const t = p.b + p.o;
+    return '<tr style="--cc:' + consColor(id) + '"><td><span class="nmc"><i></i>' + esc(consName(id, p.name)) + '</span></td><td class="n">' + t + '</td><td class="n">' + p.o + '</td><td class="n">' + p.b +
+      '</td><td class="n pct">' + pct(p.b, t) + '%</td><td><span class="bar"><span class="b" style="width:' + (p.b / max * 100) + '%"></span><span class="o" style="width:' + (p.o / max * 100) + '%"></span></span></td></tr>';
+  }).join('');
+  const wrow = weeks.map((w, i) => {
+    const k = count(weekSlotList(w)), a = w.dates[0], b = w.dates[w.dates.length - 1];
+    return '<tr class="link" data-act="tab" data-tab="' + i + '" tabindex="0"><td><b>שבוע ' + (i + 1) + '</b> <span class="cnt">' + (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + '</span></td><td class="n">' + k.t + '</td><td class="n">' + k.o + '</td><td class="n">' + k.b + '</td><td class="n pct">' + k.p + '%</td></tr>';
+  }).join('');
+  document.getElementById('monthView').innerHTML =
+    '<section class="summary" style="grid-template-columns:repeat(4,minmax(0,1fr))" aria-label="סיכום החודש">' + kpi('סלוטים שנפתחו', c.t) + kpi('פנויים', c.o) + kpi('נתפסו', c.b, 'booked') + kpi('אחוז תפוסה', c.p + '<small>%</small>') + '</section>' +
+    '<div class="mgrid">' +
+      '<div class="panel"><h2>לפי יועצת</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>יועצת</th><th class="n">סלוטים</th><th class="n">פנויים</th><th class="n">נתפסו</th><th class="n">תפוסה</th><th style="width:30%"></th></tr></thead><tbody>' +
+        (crow || '<tr><td colspan="6">אין עדיין יועצות בלוח.</td></tr>') + '</tbody><tfoot><tr><td>סה״כ</td><td class="n">' + c.t + '</td><td class="n">' + c.o + '</td><td class="n">' + c.b + '</td><td class="n">' + c.p + '%</td><td></td></tr></tfoot></table></div></div>' +
+      '<div class="panel"><h2>לפי שבוע</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>שבוע</th><th class="n">סלוטים</th><th class="n">פנויים</th><th class="n">נתפסו</th><th class="n">תפוסה</th></tr></thead><tbody>' + wrow +
+        '</tbody><tfoot><tr><td>סה״כ</td><td class="n">' + c.t + '</td><td class="n">' + c.o + '</td><td class="n">' + c.b + '</td><td class="n">' + c.p + '%</td></tr></tfoot></table></div></div>' +
+    '</div>';
+}
+
+/* ---------- dialogs ---------- */
+const dlg = document.getElementById('dlg');
+const dlgBody = document.getElementById('dlgBody');
+let dlgSubmit = null, dlgLocked = false;
+function openDlg(html, onSubmit, locked) {
+  dlgBody.innerHTML = html; dlgSubmit = onSubmit; dlgLocked = !!locked;
+  if (!dlg.open) dlg.showModal();
+  const f = dlgBody.querySelector('input:not([type=checkbox]),select,textarea'); if (f) f.focus();
+}
+function closeDlg() { dlgLocked = false; dlg.close(); dlgSubmit = null; }
+dlg.addEventListener('cancel', e => { if (dlgLocked) e.preventDefault(); });
+dlgBody.addEventListener('submit', async e => {
+  e.preventDefault();
+  const action = e.submitter?.value || 'ok';
+  if (action === 'cancel') return closeDlg();
+  if (!dlgSubmit) return closeDlg();
+  const btns = dlgBody.querySelectorAll('button'); btns.forEach(b => (b.disabled = true));
+  try { const keep = await dlgSubmit(action, new FormData(dlgBody)); if (!keep) closeDlg(); }
+  catch (err) {
+    const p = dlgBody.querySelector('.err') || dlgBody.appendChild(Object.assign(document.createElement('p'), { className: 'err' }));
+    p.textContent = errMsg(err); console.warn(err);
+  } finally { btns.forEach(b => (b.disabled = false)); }
+});
+
+function codeDialog() {
+  openDlg('<div class="gate"><div class="logo" aria-hidden="true"><span>OZ</span></div><h3>לוח סלוטי מיקוד</h3></div>' +
+    '<p class="note">הקלידו את קוד הכניסה שקיבלתם. הקוד נשמר בדפדפן הזה, כך שצריך להקליד אותו רק פעם אחת.</p>' +
+    '<label for="accessCode">קוד כניסה<input type="password" id="accessCode" name="code" autocomplete="current-password" dir="ltr" required></label>' +
+    '<div class="acts"><button class="btn primary" type="submit" value="ok">כניסה</button></div>',
+    async (a, fd) => {
+      const code = String(fd.get('code') || '').trim().toLowerCase();
+      if (!code) throw { userMsg: 'הקלידו את קוד הכניסה.' };
+      await signIn(code);
+      if (!S.me && S.cfg.consultants.length) { setTimeout(whoDialog); }
+    }, true);
+}
+async function signIn(code) {
+  const res = await rpc('fs_login', { p_code: code });
+  S.code = code; S.role = res.role; store.set('fs-code', code);
+  await load();
+}
+
+function whoDialog() {
+  const cs = S.cfg.consultants;
+  openDlg('<h3>מי נכנס/ת ללוח?</h3><p class="note">הבחירה נשמרת בדפדפן הזה. אפשר להחליף בכל רגע.</p>' +
+    (cs.length ? '<p class="sec">יועצות עסקיות</p><div class="pick">' + cs.map(c => '<button type="submit" value="c:' + c.id + '" style="--cc:var(--c' + (c.color % PALETTE) + ')"><i></i>' + esc(c.name) + '</button>').join('') + '</div><div class="divider">או</div>' : '') +
+    '<p class="sec">צוות מכירות ותיאום</p><label for="coName">השם שלך (יופיע ליד כל סלוט שתסמנו כנתפס)<input type="text" id="coName" name="coName" value="' + esc(S.me?.role === 'coordinator' ? S.me.name : '') + '" autocomplete="name"></label>' +
+    '<div class="acts"><button class="btn primary" type="submit" value="co">כניסה כצוות תיאום</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">סגירה</button></div>',
+    async (action, fd) => {
+      if (action.startsWith('c:')) { const id = action.slice(2); saveMe({ role: 'consultant', id, name: consName(id) }); }
+      else {
+        const name = String(fd.get('coName') || '').trim();
+        if (!name) throw { userMsg: 'כתבו את השם שלכם כדי שיופיע ליד הסלוטים שתסמנו.' };
+        saveMe({ role: 'coordinator', name });
+      }
+      S.filter.cons.clear(); render();
+    });
+}
+
+function slotDialog(id) {
+  const s = S.slots.get(id); if (!s) return;
+  const d = parseYmd(s.date);
+  const name = consName(s.consultantId, s.consultantName);
+  const booked = s.status === 'booked';
+  const c = s.client || {};
+  const head = '<h3>' + esc(name) + ' · ' + s.time + '</h3><p class="meta">יום ' + DAY_NAMES[d.getDay()] + ' ' + ddmm(d) + '.' + d.getFullYear() +
+    (s.location ? ' · ' + esc(s.location) : '') + ' · ' + (booked ? 'נתפס' : 'פנוי') + '</p>';
+  const locSel = S.cfg.locations.length ? '<label for="fLocSel">מיקום<select id="fLocSel" name="location"><option value="">ללא</option>' +
+    [...new Set([...S.cfg.locations, s.location].filter(Boolean))].map(l => '<option' + (l === s.location ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select></label>' : '';
+  openDlg(head + (booked ? '<p class="note">סומן כנתפס על ידי ' + esc(s.bookedBy || '—') + (s.bookedAt ? ' ב-' + new Date(s.bookedAt).toLocaleDateString('he-IL') : '') + '. פרטי הלקוח לא חובה.</p>' : '') +
+    '<label for="fName">שם הלקוח<input type="text" id="fName" name="name" value="' + esc(c.name) + '"></label>' +
+    '<div class="row2"><label for="fPhone">טלפון<input type="tel" id="fPhone" name="phone" value="' + esc(c.phone) + '" dir="ltr"></label>' + (locSel || '<span></span>') + '</div>' +
+    '<label for="fNotes">הערות<textarea id="fNotes" name="notes">' + esc(c.notes) + '</textarea></label>' +
+    '<div class="acts">' + (booked ? '<button class="btn primary" type="submit" value="save">שמירה</button><button class="btn danger" type="submit" value="unbook">החזרה לפנוי</button>'
+      : '<button class="btn primary" type="submit" value="book">סימון כנתפס</button>') +
+    '<span class="sp"></span><button class="btn ghost" type="submit" value="cancel">סגירה</button></div>',
+    async (action, fd) => {
+      if (action === 'unbook') { await markOpen(id); await refresh(); toast('הסלוט חזר להיות פנוי'); return; }
+      const fields = { name: String(fd.get('name') || '').trim(), phone: String(fd.get('phone') || '').trim(), notes: String(fd.get('notes') || '').trim(),
+        location: fd.has('location') ? String(fd.get('location')) : undefined };
+      await markBooked(id, fields, action === 'save');
+      await refresh();
+      toast(action === 'save' ? 'הפרטים נשמרו' : 'סומן כנתפס');
+    });
+}
+
+function confirmDialog(title, text, okLabel, fn) {
+  openDlg('<h3>' + title + '</h3><p class="note">' + text + '</p><div class="acts"><button class="btn danger" type="submit" value="ok">' + okLabel + '</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">ביטול</button></div>', fn);
+}
+
+function adminGate() {
+  openDlg('<h3>הגדרות הלוח</h3><p class="note">ההגדרות פתוחות רק למנהל הלוח. הקלידו את קוד המנהל.</p>' +
+    '<label for="adminCode">קוד מנהל<input type="password" id="adminCode" name="code" dir="ltr" autocomplete="off"></label>' +
+    '<div class="acts"><button class="btn primary" type="submit" value="ok">המשך</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">ביטול</button></div>',
+    async (a, fd) => {
+      const code = String(fd.get('code') || '').trim().toLowerCase();
+      const res = await rpc('fs_login', { p_code: code }).catch(e => { if (e.message === 'bad_code') throw { userMsg: 'קוד המנהל לא נכון.' }; throw e; });
+      if (res.role !== 'admin') throw { userMsg: 'זה קוד הצוות. להגדרות צריך את קוד המנהל.' };
+      S.code = code; S.role = 'admin'; store.set('fs-code', code);
+      setTimeout(settingsDialog); return true;
+    });
+}
+
+function settingsDialog() {
+  if (S.role !== 'admin') return adminGate();
+  const draft = JSON.parse(JSON.stringify(S.cfg));
+  const opts = (sel, from, to) => { let o = ''; for (let m = toMin(from); m <= toMin(to); m += 30) { const t = fromMin(m); o += '<option' + (t === sel ? ' selected' : '') + '>' + t + '</option>'; } return o; };
+  const paint = () => {
+    openDlg('<h3>הגדרות הלוח</h3>' +
+      '<p class="sec">יועצות עסקיות</p><div class="list">' + draft.consultants.map((c, i) =>
+        '<div class="li" style="--cc:var(--c' + (c.color % PALETTE) + ')"><i></i><input type="text" id="cn' + i + '" name="cn' + i + '" value="' + esc(c.name) + '" aria-label="שם יועצת"><button class="btn ghost" type="submit" value="delc:' + i + '" aria-label="הסרת ' + esc(c.name) + '">הסרה</button></div>').join('') +
+      '</div><div class="addrow"><input type="text" id="newCons" name="newCons" placeholder="שם יועצת חדשה"><button class="btn" type="submit" value="addc">הוספה</button></div>' +
+      '<p class="sec">מיקומים</p><p class="note">למשל: משרד, זום, אצל הלקוח. כשיש מיקומים, היועצות בוחרות מיקום לכל סלוט.</p><div class="list">' + draft.locations.map((l, i) =>
+        '<div class="li"><input type="text" id="ln' + i + '" name="ln' + i + '" value="' + esc(l) + '" aria-label="מיקום"><button class="btn ghost" type="submit" value="dell:' + i + '">הסרה</button></div>').join('') +
+      '</div><div class="addrow"><input type="text" id="newLocName" name="newLoc" placeholder="מיקום חדש"><button class="btn" type="submit" value="addl">הוספה</button></div>' +
+      '<p class="sec">שעות הלוח</p><div class="row2"><label for="cfgStart">סלוט ראשון<select id="cfgStart" name="start">' + opts(draft.start, '06:00', '14:00') + '</select></label><label for="cfgEnd">סלוט אחרון<select id="cfgEnd" name="end">' + opts(draft.end, '10:00', '22:00') + '</select></label></div>' +
+      '<label class="field" for="cfgFri" style="flex-direction:row"><input type="checkbox" id="cfgFri" name="fri"' + (draft.days.includes(5) ? ' checked' : '') + '> כולל יום שישי</label>' +
+      '<div class="acts"><button class="btn primary" type="submit" value="save">שמירה</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">ביטול</button></div>',
+      async (action, fd) => {
+        draft.consultants.forEach((c, i) => { const v = String(fd.get('cn' + i) || '').trim(); if (v) c.name = v; });
+        draft.locations = draft.locations.map((l, i) => String(fd.get('ln' + i) || '').trim()).filter(Boolean);
+        draft.start = String(fd.get('start')); draft.end = String(fd.get('end'));
+        draft.days = fd.get('fri') ? [0, 1, 2, 3, 4, 5] : [0, 1, 2, 3, 4];
+        if (action === 'addc') {
+          const n = String(fd.get('newCons') || '').trim(); if (!n) return true;
+          const used = new Set(draft.consultants.map(c => c.color % PALETTE));
+          let color = 0; while (used.has(color) && color < PALETTE) color++;
+          draft.consultants.push({ id: newId(), name: n, color: color % PALETTE });
+          paint(); setTimeout(() => document.getElementById('newCons')?.focus()); return true;
+        }
+        if (action === 'addl') { const n = String(fd.get('newLoc') || '').trim(); if (n && !draft.locations.includes(n)) draft.locations.push(n); paint(); setTimeout(() => document.getElementById('newLocName')?.focus()); return true; }
+        if (action.startsWith('delc:')) { draft.consultants.splice(+action.slice(5), 1); paint(); return true; }
+        if (action.startsWith('dell:')) { draft.locations.splice(+action.slice(5), 1); paint(); return true; }
+        if (toMin(draft.end) <= toMin(draft.start)) throw { userMsg: 'הסלוט האחרון צריך להיות אחרי הסלוט הראשון.' };
+        await rpc('fs_save_config', { p_code: S.code, p_config: draft });
+        await refresh();
+        toast('ההגדרות נשמרו');
+      });
+  };
+  paint();
+}
+
+/* ---------- bulk actions ---------- */
+async function copyPrevWeek() {
+  const w = curWeek(); if (!w) return;
+  const targets = new Set(w.dates.map(ymd));
+  const prev = addDays(w.start, -7);
+  const res = await rpc('fs_load', { p_code: S.code, p_from: ymd(prev), p_to: ymd(addDays(prev, 6)) });
+  const me = isConsultant() ? S.me.id : null;
+  const todo = res.slots.filter(s => (!me || s.consultantId === me) && cons(s.consultantId))
+    .map(s => ({ ...s, date: ymd(addDays(parseYmd(s.date), 7)) }))
+    .filter(s => targets.has(s.date) && !isPast(s.date, s.time) && !S.slots.has(slotId(s.date, s.time, s.consultantId)));
+  if (!todo.length) return toast(res.slots.length ? 'אין סלוטים חדשים להעתיק לשבוע הזה' : 'בשבוע הקודם לא היו סלוטים');
+  const n = await addSlots(todo);
+  await refresh();
+  toast('נוספו ' + n + ' סלוטים פנויים');
+}
+
+async function openWholeDay(date) {
+  const me = S.me.id;
+  const todo = timesList().filter(t => !isPast(date, t) && !S.slots.has(slotId(date, t, me))).map(t => ({ date, time: t, consultantId: me, location: S.newLoc }));
+  if (!todo.length) return toast('כל השעות ביום הזה כבר פתוחות');
+  const n = await addSlots(todo);
+  await refresh();
+  toast('נפתחו ' + n + ' סלוטים');
+}
+
+function clearMyWeek() {
+  const me = S.me.id, w = curWeek(), set = new Set(w.dates.map(ymd));
+  const ids = [...S.slots].filter(([, s]) => set.has(s.date) && s.consultantId === me && s.status !== 'booked' && !isPast(s.date, s.time)).map(([id]) => id);
+  if (!ids.length) return toast('אין לך סלוטים פנויים להסרה בשבוע הזה');
+  confirmDialog('להסיר ' + ids.length + ' סלוטים?', 'יוסרו רק הסלוטים הפנויים שלך מהשבוע הזה. סלוטים שנתפסו יישארו.', 'הסרה', async () => {
+    const n = await rpc('fs_remove_slots', { p_code: S.code, p_ids: ids });
+    await refresh();
+    toast('הוסרו ' + n + ' סלוטים');
+  });
+}
+
+/* ---------- events ---------- */
+document.getElementById('app').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const act = b.dataset.act;
+  try {
+    if (act === 'who') return whoDialog();
+    if (act === 'settings') return settingsDialog();
+    if (act === 'tab') { S.tab = b.dataset.tab === 'sum' ? 'sum' : +b.dataset.tab; return render(); }
+    if (act === 'day') { S.day = +b.dataset.day; return render(); }
+    if (act === 'fcons') { const id = b.dataset.id; S.filter.cons.has(id) ? S.filter.cons.delete(id) : S.filter.cons.add(id); return render(); }
+    if (act === 'fopen') { S.filter.openOnly = !S.filter.openOnly; return render(); }
+    if (!signedIn()) return codeDialog();
+    if (act === 'slot') {
+      const s = S.slots.get(b.dataset.id); if (!s) return;
+      if (s.status === 'booked') return slotDialog(b.dataset.id);
+      if (!S.me) return whoDialog();
+      return await quickBook(b.dataset.id);
+    }
+    if (act === 'add') {
+      b.disabled = true;
+      const s = { date: b.dataset.date, time: b.dataset.time, consultantId: S.me.id, location: S.newLoc };
+      S.slots.set(slotId(s.date, s.time, s.consultantId), { ...s, id: slotId(s.date, s.time, s.consultantId), status: 'open', consultantName: consName(s.consultantId) }); render();
+      await addSlots([s]); await refresh(); return;
+    }
+    if (act === 'remove') {
+      const id = b.dataset.id, s = S.slots.get(id);
+      S.slots.delete(id); render();
+      await rpc('fs_remove_slots', { p_code: S.code, p_ids: [id] }); await refresh();
+      toast('הסלוט הוסר', [{ label: 'ביטול', fn: () => addSlots([s]).then(refresh).catch(e => toast(errMsg(e))) }]);
+      return;
+    }
+    if (act === 'openDay') return await openWholeDay(b.dataset.date);
+    if (act === 'copyPrev') return await copyPrevWeek();
+    if (act === 'clearWeek') return clearMyWeek();
+  } catch (err) { console.warn(err); toast(errMsg(err)); refresh(); }
+});
+document.getElementById('app').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('tr.link')) e.target.click(); });
+document.getElementById('app').addEventListener('change', e => {
+  if (e.target.id === 'newLoc') S.newLoc = e.target.value;
+  if (e.target.id === 'fLoc') { S.filter.loc = e.target.value; render(); }
+});
+function goMonth(d) { S.month = firstOfMonth(d); S.tab = null; S.slots = new Map(); render(); refresh(); }
+document.getElementById('prevMonth').onclick = () => goMonth(new Date(S.month.getFullYear(), S.month.getMonth() - 1, 1));
+document.getElementById('nextMonth').onclick = () => goMonth(new Date(S.month.getFullYear(), S.month.getMonth() + 1, 1));
+document.getElementById('thisMonth').onclick = () => { S.day = new Date().getDay(); goMonth(new Date()); };
+matchMedia('(max-width:720px)').addEventListener('change', () => render());
+
+/* theme: follows the system unless the viewer picks one */
+(function () {
+  const saved = store.get('fs-theme'); if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('themeBtn').onclick = () => {
+    const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = dark ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next; store.set('fs-theme', next);
+  };
+})();
+
+/* ---------- boot ---------- */
+setInterval(() => { if (S.role && document.visibilityState === 'visible') refresh(); }, POLL_MS);
+document.addEventListener('visibilitychange', () => { if (S.role && document.visibilityState === 'visible') refresh(); });
+render();
+(async () => {
+  if (!CONF.url || !CONF.key) return;
+  const m = location.hash.match(/^#k=([\w-]+)$/);
+  if (m) { S.code = m[1].toLowerCase(); history.replaceState(null, '', location.pathname); }
+  if (!S.code) return codeDialog();
+  try {
+    await signIn(S.code);
+    if (!S.me && S.cfg.consultants.length) whoDialog();
+  } catch (e) { if (e?.message !== 'bad_code') { setBanner(errMsg(e), 'warn'); } }
+})();
+</script>
+</body>
+</html>
