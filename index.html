@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>מערכת סלוטים – פגישות מיקוד</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0a08'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23d4a94f' stroke-width='3'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Heebo,Arial,sans-serif' font-weight='700' font-size='18' fill='%23d4a94f'%3EOZ%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="סלוטים">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#100e0a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap">
 <style>
@@ -452,7 +458,7 @@ function isPast(date, time) {
 function signedIn() { return !!S.me; }
 function isConsultant() { return S.me?.role === 'consultant'; }
 function isAdmin() { return S.me?.role === 'admin'; }
-function boardLink(token) { return location.origin + location.pathname + '#k=' + token; }
+function boardLink(token) { return location.origin + location.pathname + '?k=' + token; }
 function pct(b, t) { return t ? Math.round(b / t * 100) : 0; }
 function initial(name) { return esc(String(name || '').trim().charAt(0) || '?'); }
 function av(name, cls) { return '<span class="av' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + initial(name) + '</span>'; }
@@ -524,15 +530,17 @@ async function rpc(fn, args) {
   }
   return body;
 }
-/* הקוד נשאר בשורת הכתובת, כדי שהעתקה, מועדפים והוספה למסך הבית באייפון ישמרו את הקישור האישי */
+/* הקוד נשאר בשורת הכתובת (?k=), כדי שהעתקה, מועדפים והוספה למסך הבית באייפון ישמרו את הקישור האישי.
+   אייקון במסך הבית נפתח עם זיכרון נפרד מ־Safari, ולכן הקוד חייב להיות בכתובת עצמה */
 function urlCode() {
   const h = location.hash.match(/[#&]k=([0-9a-z_-]+)/i), q = new URLSearchParams(location.search).get('k');
   return (h ? h[1] : q || '').toLowerCase() || null;
 }
 function setUrlCode(code) {
   const q = new URLSearchParams(location.search); q.delete('k');
+  if (code) q.set('k', code);
   const qs = q.toString();
-  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + (code ? '#k=' + code : ''));
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
 }
 function signOut() {
   S.code = null; S.me = null; S.ready = false; S.slots = new Map(); S.filter.cons.clear();

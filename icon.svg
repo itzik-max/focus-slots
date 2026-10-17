@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#241d13"/>
+      <stop offset="1" stop-color="#0b0a08"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.85" cy="0.1" r="0.75">
+      <stop offset="0" stop-color="#e4bc68" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#e4bc68" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6dc9c"/>
+      <stop offset="1" stop-color="#c9973d"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#bg)"/>
+  <rect width="180" height="180" fill="url(#glow)"/>
+  <!-- גוף היומן -->
+  <rect x="36" y="46" width="108" height="98" rx="17" fill="#15120d" stroke="url(#gold)" stroke-width="7"/>
+  <!-- פס עליון -->
+  <path d="M36 63a17 17 0 0 1 17-17h74a17 17 0 0 1 17 17v15H36z" fill="url(#gold)"/>
+  <!-- טבעות -->
+  <rect x="61" y="32" width="11" height="28" rx="5.5" fill="url(#gold)" stroke="#0b0a08" stroke-width="4"/>
+  <rect x="108" y="32" width="11" height="28" rx="5.5" fill="url(#gold)" stroke="#0b0a08" stroke-width="4"/>
+  <!-- משבצות: אחת נתפסה -->
+  <g fill="#e4bc68" fill-opacity=".32">
+    <rect x="51" y="89" width="20" height="16" rx="4"/>
+    <rect x="80" y="89" width="20" height="16" rx="4"/>
+    <rect x="51" y="114" width="20" height="16" rx="4"/>
+    <rect x="80" y="114" width="20" height="16" rx="4"/>
+    <rect x="109" y="114" width="20" height="16" rx="4"/>
+  </g>
+  <rect x="109" y="89" width="20" height="16" rx="4" fill="url(#gold)"/>
+  <path d="M113.5 97.5l4 4 7.5-8" fill="none" stroke="#0b0a08" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
