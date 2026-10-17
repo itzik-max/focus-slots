@@ -454,6 +454,8 @@ function boardLink(token) { return location.origin + location.pathname + '#k=' +
 function pct(b, t) { return t ? Math.round(b / t * 100) : 0; }
 function initial(name) { return esc(String(name || '').trim().charAt(0) || '?'); }
 function av(name, cls) { return '<span class="av' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + initial(name) + '</span>'; }
+// שם קצר לתגית על הסלוט: שם פרטי ואות ראשונה של שם המשפחה (ליאב ק׳)
+function shortName(n) { const w = String(n || '').trim().split(/\s+/); return w.length > 1 ? w[0] + ' ' + w[1].charAt(0) + '׳' : w[0]; }
 function rangeLbl(w) { const a = w.dates[0], b = w.dates[w.dates.length - 1]; return a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b); }
 
 function monthWeeks() {
@@ -742,7 +744,7 @@ function renderGrid() {
         const label = name + ' · ' + tm + ' · ' + (booked ? 'נתפס' + (s.bookedBy ? ' על ידי ' + s.bookedBy : '') + (sub ? ' · לקוח: ' + sub : '') : me ? 'פנוי' : 'פנוי, לחצו לסימון כנתפס');
         inner += '<div class="cw"><button class="chip' + (booked ? ' booked' : '') + (past && !booked ? ' dim' : '') + (S.busy.has(id) ? ' busy' : '') +
           '" data-act="slot" data-id="' + esc(id) + '" style="--cc:' + consColor(s.consultantId) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '"><span class="ck">' + (booked ? '✓' : '') + '</span><span class="nm">' +
-          esc(name) + '</span>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '<span class="sub"></span>') + (booked && s.bookedBy ? '<span class="by">' + esc(s.bookedBy) + '</span>' : '') + '</button>' +
+          esc(name) + '</span>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '<span class="sub"></span>') + (booked && s.bookedBy ? '<span class="by">' + esc(shortName(s.bookedBy)) + '</span>' : '') + '</button>' +
           (s.consultantId === me && !booked && !past ? '<button class="x" data-act="remove" data-id="' + esc(id) + '" title="הסרת הסלוט" aria-label="הסרת הסלוט">×</button>' : '') + '</div>';
       }
       if (me && !past && !hasMine) inner += '<button class="add" data-act="add" data-date="' + ds + '" data-time="' + tm + '">+ פתיחת סלוט</button>';
