@@ -9,55 +9,77 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap">
 <style>
-/* Itzik Oz brand: warm black + gold, Heebo. Light = cream paper, dark = cockpit black. */
+/* מותג איציק עוז: שחור חם + זהב, Heebo. מצב בהיר = נייר קרם, מצב כהה = שחור קוקפיט.
+   צבעי היועצות (--c0 עד --c7) הם מילוי מלא עם טקסט לבן, ולכן זהים בשני המצבים. */
 :root{
-  --bg:#f4efe4; --surface:#fffdf8; --sunk:#eee6d4; --ink:#17140f; --muted:#6f6656; --line:#e4dccb; --line-strong:#d0c5ad;
-  --gold:#976b17; --gold-hi:#b88a2f; --gold-ink:#fffdf8; --gold-soft:#f1e5c8; --gold-line:rgba(168,120,31,.34);
-  --head-bg:#17140f; --head-ink:#e9cf94; --head-muted:#b9ad94;
+  --bg:#f2ede2; --glow:rgba(205,158,64,.22);
+  --surface:#fffdf8; --surface-2:#f8f3e8; --sunk:#ebe3d1; --ink:#16130e; --muted:#6b6252; --line:#e5dccb; --line-strong:#d0c4ab;
+  --gold:#946813; --gold-hi:#b98b2e; --gold-ink:#fffdf8; --gold-soft:#f2e6c9; --gold-line:rgba(168,120,31,.32);
+  --night:#100e0a; --night-ink:#f4ecd9; --night-muted:#a59c88; --night-gold:#e4bc68; --night-line:rgba(228,188,104,.24);
   --danger:#b42a2a; --danger-soft:#f7e0dc; --warn:#8a5a00;
-  --c0:#2a78d6; --c1:#c45a2a; --c2:#14946a; --c3:#4a3aa7; --c4:#a8781f; --c5:#c4507f; --c6:#c43a3a; --c7:#007a00;
+  --c0:#2563d9; --c1:#c64b15; --c2:#0b875b; --c3:#6a44d4; --c4:#c22c6a; --c5:#0a7a8c; --c6:#5f7d0e; --c7:#b0282f;
+  --booked-pct:56%;
   --font:"Heebo","Segoe UI",Arial,sans-serif;
-  --r:10px; --shadow:0 1px 2px rgb(23 20 15 / .06),0 8px 28px rgb(23 20 15 / .08);
+  --r:12px; --r-lg:18px;
+  --shadow-sm:0 1px 2px rgb(23 20 15 / .05),0 2px 10px rgb(23 20 15 / .05);
+  --shadow:0 1px 2px rgb(23 20 15 / .06),0 18px 40px -16px rgb(23 20 15 / .22);
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0b0a08; --surface:#14120e; --sunk:#1b1813; --ink:#f6f1e7; --muted:#9a917f; --line:#26221b; --line-strong:#3a342b;
-  --gold:#d4a94f; --gold-hi:#f0d595; --gold-ink:#0b0a08; --gold-soft:#2a2316; --gold-line:rgba(212,169,79,.34);
-  --head-bg:#080705; --head-ink:#e9cf94; --head-muted:#8a8272;
+  --bg:#090806; --glow:rgba(212,169,79,.14);
+  --surface:#13110d; --surface-2:#18150f; --sunk:#221e17; --ink:#f5efe2; --muted:#9b927f; --line:#27231c; --line-strong:#3a342a;
+  --gold:#d9ae55; --gold-hi:#f0d595; --gold-ink:#0b0a08; --gold-soft:#2a2316; --gold-line:rgba(212,169,79,.3);
+  --night:#1a1611; --night-line:rgba(228,188,104,.3);
   --danger:#ef6b6b; --danger-soft:#3a1c1a; --warn:#f2b53a;
-  --c0:#5b9bea; --c1:#e2774a; --c2:#2fbf8a; --c3:#9a8ff0; --c4:#d4a94f; --c5:#e07aa4; --c6:#ec7070; --c7:#4fbf4f;
-  --shadow:0 1px 2px rgb(0 0 0 / .4),0 10px 30px rgb(0 0 0 / .45); color-scheme:dark}}
+  --booked-pct:50%;
+  --shadow-sm:0 1px 2px rgb(0 0 0 / .4);
+  --shadow:0 1px 2px rgb(0 0 0 / .45),0 18px 44px -16px rgb(0 0 0 / .75); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0b0a08; --surface:#14120e; --sunk:#1b1813; --ink:#f6f1e7; --muted:#9a917f; --line:#26221b; --line-strong:#3a342b;
-  --gold:#d4a94f; --gold-hi:#f0d595; --gold-ink:#0b0a08; --gold-soft:#2a2316; --gold-line:rgba(212,169,79,.34);
-  --head-bg:#080705; --head-ink:#e9cf94; --head-muted:#8a8272;
+  --bg:#090806; --glow:rgba(212,169,79,.14);
+  --surface:#13110d; --surface-2:#18150f; --sunk:#221e17; --ink:#f5efe2; --muted:#9b927f; --line:#27231c; --line-strong:#3a342a;
+  --gold:#d9ae55; --gold-hi:#f0d595; --gold-ink:#0b0a08; --gold-soft:#2a2316; --gold-line:rgba(212,169,79,.3);
+  --night:#1a1611; --night-line:rgba(228,188,104,.3);
   --danger:#ef6b6b; --danger-soft:#3a1c1a; --warn:#f2b53a;
-  --c0:#5b9bea; --c1:#e2774a; --c2:#2fbf8a; --c3:#9a8ff0; --c4:#d4a94f; --c5:#e07aa4; --c6:#ec7070; --c7:#4fbf4f;
-  --shadow:0 1px 2px rgb(0 0 0 / .4),0 10px 30px rgb(0 0 0 / .45); color-scheme:dark}
+  --booked-pct:50%;
+  --shadow-sm:0 1px 2px rgb(0 0 0 / .4);
+  --shadow:0 1px 2px rgb(0 0 0 / .45),0 18px 44px -16px rgb(0 0 0 / .75); color-scheme:dark}
 
 *{box-sizing:border-box}
 html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5;
+  background:radial-gradient(1100px 520px at 100% -8%,var(--glow),transparent 62%),radial-gradient(800px 420px at -5% 2%,color-mix(in oklab,var(--glow) 55%,transparent),transparent 60%),var(--bg)}
 [hidden]{display:none!important}
-#app{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px;display:flex;flex-direction:column;gap:14px}
+#app{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;display:flex;flex-direction:column;gap:16px}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .num{font-variant-numeric:tabular-nums}
 
-/* masthead */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);padding-block:14px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;border-bottom:1px solid var(--gold-line)}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:42px;height:42px;flex:none;border-radius:11px;background:var(--head-bg);display:grid;place-items:center}
-.logo span{width:32px;height:32px;border:2px solid #d4a94f;border-radius:50%;display:grid;place-items:center;color:#d4a94f;font-weight:800;font-size:12.5px;letter-spacing:.5px}
-.brand h1{margin:0;font-weight:800;font-size:22px;line-height:1.1;letter-spacing:-.2px}
-.brand small{display:block;font-size:12px;color:var(--gold);font-weight:600;margin-top:2px}
+/* עיגול ראשי תיבות של יועצת */
+.av{width:30px;height:30px;flex:none;border-radius:50%;background:var(--cc,var(--gold));color:#fff;display:grid;place-items:center;font-weight:800;font-size:13.5px;line-height:1;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.av.gold{background:linear-gradient(145deg,#f3d692,#c9993f);color:#0b0a08}
+
+/* פס עליון */
+.top{position:relative;isolation:isolate;overflow:hidden;background:var(--night);color:var(--night-ink);border:1px solid var(--night-line);border-radius:var(--r-lg);padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;box-shadow:var(--shadow)}
+.top::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(520px 200px at 100% 0%,rgba(228,188,104,.26),transparent 70%),radial-gradient(380px 180px at 0% 130%,rgba(228,188,104,.15),transparent 70%)}
+.top::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.07;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:48px;height:48px;flex:none;border-radius:14px;background:linear-gradient(145deg,#1f1a12,#0b0a08);border:1px solid rgba(228,188,104,.35);display:grid;place-items:center;box-shadow:0 0 0 4px rgba(228,188,104,.06),0 8px 22px -8px rgba(228,188,104,.5)}
+.logo span{width:34px;height:34px;border:2px solid #e4bc68;border-radius:50%;display:grid;place-items:center;color:#e4bc68;font-weight:800;font-size:13px;letter-spacing:.5px}
+.brand h1{margin:0;font-weight:900;font-size:25px;line-height:1.05;color:var(--night-ink)}
+.brand h1 em{font-style:normal;background:linear-gradient(90deg,#f6dc9c,#d6a24a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{display:block;font-size:12.5px;color:var(--night-muted);font-weight:500;margin-top:5px}
 .monthnav{display:flex;align-items:center;gap:6px;margin-inline-start:auto}
-.monthnav .lbl{text-align:center;padding-inline:8px;min-width:132px}
-.monthnav .lbl b{font-weight:800;font-size:19px;display:block;line-height:1.2}
-.monthnav .lbl span{font-size:12px;color:var(--muted)}
-.btn{border:1px solid var(--line-strong);background:var(--surface);border-radius:var(--r);padding:7px 12px;font-weight:500;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.monthnav .lbl{text-align:center;padding-inline:10px;min-width:140px}
+.monthnav .lbl b{font-weight:800;font-size:20px;display:block;white-space:nowrap;line-height:1.15;color:var(--night-ink)}
+.monthnav .lbl span{font-size:12px;color:var(--night-gold)}
+.who{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding-block:4px;padding-inline:4px 6px}
+.who .nmw{line-height:1.25;font-weight:600}
+.who .role{font-size:11.5px;color:var(--night-muted);font-weight:400}
+
+.btn{border:1px solid var(--line-strong);background:var(--surface);border-radius:10px;padding:7px 13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:border-color .15s,background-color .15s,transform .15s}
 .btn:hover{border-color:var(--gold)}
+.btn:active{transform:translateY(1px)}
 .btn.icon{padding:7px 10px}
 .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--gold-ink);font-weight:700}
 .btn.primary:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
@@ -65,122 +87,154 @@ button{cursor:pointer}
 .btn.danger:hover{background:var(--danger-soft)}
 .btn.ghost{border-color:transparent;background:transparent}
 .btn[disabled]{opacity:.5;cursor:not-allowed}
-.who{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 12px}
-.who .dot{width:10px;height:10px;border-radius:50%;background:var(--cc,var(--gold))}
-.who .role{font-size:12px;color:var(--muted)}
+.top .btn{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.13);color:var(--night-ink)}
+.top .btn:hover{border-color:var(--night-gold);background:rgba(228,188,104,.12)}
+.top .btn.icon{width:36px;height:36px;padding:0;justify-content:center;border-radius:50%}
+.top .btn.ghost{border-color:transparent;background:transparent;color:var(--night-gold)}
 
 .banner{border:1px solid var(--line-strong);background:var(--surface);border-radius:var(--r);padding:12px 14px}
-.banner.warn{border-color:color-mix(in oklab,var(--warn) 50%,transparent)}
+.banner.warn{border-color:color-mix(in oklab,var(--warn) 50%,transparent);background:color-mix(in oklab,var(--warn) 7%,var(--surface))}
 .banner p{margin:0}
 
-/* tabs */
-.tabs{display:flex;gap:4px;border-bottom:2px solid var(--head-bg);overflow-x:auto;padding-top:2px}
-.tab{flex:none;border:1px solid var(--line-strong);border-bottom:none;background:var(--sunk);border-radius:9px 9px 0 0;padding:7px 16px 6px;display:flex;flex-direction:column;align-items:center;line-height:1.2;color:var(--ink)}
-.tab b{font-weight:700}
+/* פס התפלגות: כמה סלוטים יש לכל יועצת, בצבע שלה */
+.mix{display:flex;gap:1.5px;height:5px;border-radius:3px;overflow:hidden;background:var(--sunk)}
+.mix i{background:var(--cc);min-width:3px}
+
+/* טאבים של שבועות */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-sm);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 132px;max-width:210px;border:1px solid transparent;background:transparent;border-radius:11px;padding:8px 12px 10px;display:flex;flex-direction:column;align-items:stretch;gap:3px;text-align:start;color:var(--ink);transition:background-color .15s,box-shadow .2s}
+.tab .tt{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.tab b{font-weight:800;font-size:14.5px}
 .tab small{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-.tab:hover{background:var(--gold-soft)}
-.tab[aria-selected="true"]{background:var(--head-bg);color:var(--head-ink);border-color:var(--head-bg)}
-.tab[aria-selected="true"] small{color:var(--head-muted)}
-.tab.cur:not([aria-selected="true"]) b::after{content:" •";color:var(--gold)}
+.tab .pc{font-size:12px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.tab .mix{margin-top:3px}
+.tab:hover{background:var(--surface-2)}
+.tab.cur small{color:var(--gold);font-weight:600}
+.tab[aria-selected="true"]{background:var(--night);color:var(--night-ink);border-color:var(--night-line);box-shadow:0 8px 20px -10px rgb(13 11 8 / .55)}
+.tab[aria-selected="true"] small{color:var(--night-muted)}
+.tab[aria-selected="true"].cur small,.tab[aria-selected="true"] .pc{color:var(--night-gold)}
+.tab[aria-selected="true"] .mix{background:rgba(255,255,255,.12)}
 .tab.sum{margin-inline-start:auto;background:var(--gold-soft);border-color:var(--gold-line)}
-.tab.sum[aria-selected="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
-.tab.sum[aria-selected="true"] small{color:color-mix(in oklab,var(--gold-ink) 75%,transparent)}
+.tab.sum[aria-selected="true"]{background:linear-gradient(135deg,#f3d692,#cf9d43);color:#0b0a08;border-color:transparent}
+.tab.sum[aria-selected="true"] small,.tab.sum[aria-selected="true"] .pc{color:#4a3810}
+.tab.sum[aria-selected="true"] .mix{background:rgba(0,0,0,.14)}
 
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .toolbar .sep{flex:1 1 auto}
-.toolbar .hint{font-size:12.5px;color:var(--muted)}
+.hint{font-size:12.5px;color:var(--muted)}
 .field{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
-select,input[type=text],input[type=tel],input[type=password],textarea{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r);padding:8px 10px;min-width:0}
+select,input[type=text],input[type=tel],input[type=password],textarea{background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:8px 10px;min-width:0}
 textarea{resize:vertical;min-height:64px;width:100%}
 
-/* stats row */
-.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,2.6fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.kpi{background:var(--surface);padding:12px 14px}
-.kpi .k{font-size:12px;color:var(--muted);letter-spacing:.3px}
-.kpi .v{font-weight:800;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
-.kpi .v small{font-size:14px;color:var(--muted);font-weight:500;margin-inline-start:2px}
-.kpi.booked .v{color:var(--gold)}
-.per{background:var(--surface);padding:10px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px 18px;align-content:center}
-.per .row{display:grid;grid-template-columns:minmax(0,auto) 1fr auto;align-items:center;gap:8px;font-size:13px;min-width:0}
-.nmc{display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.nmc i{width:9px;height:9px;border-radius:50%;background:var(--cc);flex:none}
-.bar{height:6px;border-radius:3px;background:var(--sunk);overflow:hidden;display:flex;min-width:30px}
-.bar .b{background:var(--cc,var(--gold))}
-.bar .o{background:color-mix(in oklab,var(--cc,var(--gold)) 28%,transparent)}
-.per .cnt,.cnt{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+/* סיכום: טבעת תפוסה + כרטיס צבעוני לכל יועצת */
+.summary{display:grid;grid-template-columns:minmax(270px,auto) minmax(0,1fr);gap:12px;align-items:stretch}
+.ringcard{position:relative;isolation:isolate;overflow:hidden;background:var(--night);color:var(--night-ink);border:1px solid var(--night-line);border-radius:var(--r-lg);padding:14px 20px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow-sm)}
+.ringcard::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(220px 140px at 100% 0%,rgba(228,188,104,.2),transparent 70%)}
+.ring{--p:0;position:relative;width:90px;height:90px;flex:none;display:grid;place-items:center;text-align:center}
+.ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(#e4bc68 calc(var(--p) * 1%),rgba(255,255,255,.1) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px));mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px))}
+.ring b{display:block;font-weight:900;font-size:25px;line-height:1}
+.ring b small{font-size:13px;font-weight:600;margin-inline-start:1px}
+.ring span{display:block;font-size:10.5px;color:var(--night-muted);margin-top:3px}
+.stats{display:grid;gap:5px;margin:0;flex:1;min-width:120px}
+.stats div{display:flex;align-items:baseline;justify-content:space-between;gap:18px}
+.stats dt{font-size:12.5px;color:var(--night-muted)}
+.stats dd{margin:0;font-weight:800;font-size:20px;line-height:1.15}
+.stats dd.g{color:var(--night-gold)}
+.people{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:10px;align-content:start}
+.noone{display:grid;place-items:center;color:var(--muted);border:1.5px dashed var(--line-strong);border-radius:var(--r-lg);padding:20px}
+.ptile{--cc:var(--muted);position:relative;isolation:isolate;overflow:hidden;border:0;border-radius:var(--r-lg);padding:12px 14px;background:var(--cc);color:#fff;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px 10px;text-align:start;min-width:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 24px -16px var(--cc);transition:transform .18s,box-shadow .18s,opacity .18s,filter .18s}
+.ptile::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(170px 100px at 100% 0%,rgba(255,255,255,.26),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.1))}
+.ptile .av{background:rgba(255,255,255,.2);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+.ptile .pn{min-width:0}
+.ptile .pn b{display:block;font-weight:800;font-size:15px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptile .pn small{display:block;font-size:12px;opacity:.9;font-variant-numeric:tabular-nums}
+.ptile .pp{font-weight:900;font-size:21px;line-height:1;font-variant-numeric:tabular-nums}
+.ptile .pp small{font-size:11px;font-weight:600}
+.ptile .pbar{grid-column:1/-1;height:6px;border-radius:3px;background:rgba(255,255,255,.25);overflow:hidden}
+.ptile .pbar i{display:block;height:100%;background:#fff;border-radius:3px}
+button.ptile:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 18px 30px -16px var(--cc)}
+.people.filtering .ptile[aria-pressed="false"]{opacity:.38;filter:saturate(.5)}
+.ptile[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--cc),0 18px 30px -16px var(--cc)}
 
-.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.fchip{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:4px 10px 4px 12px;font-size:13px;display:inline-flex;align-items:center;gap:6px}
-.fchip i{width:9px;height:9px;border-radius:50%;background:var(--cc,var(--muted))}
-.fchip[aria-pressed="true"]{background:color-mix(in oklab,var(--cc,var(--gold)) 16%,var(--surface));border-color:var(--cc,var(--gold));font-weight:600}
+.filters{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.fchip{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:5px 13px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.fchip:hover{border-color:var(--gold)}
+.fchip[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold);color:var(--ink)}
+.fchip.clear{background:var(--night);border-color:var(--night-line);color:var(--night-ink)}
 .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-inline-start:auto;flex-wrap:wrap}
 .legend span{display:inline-flex;align-items:center;gap:6px}
-.legend .sw{width:22px;height:12px;border-radius:3px;border:1.5px solid var(--muted)}
-.legend .sw.b{background:var(--muted)}
+.legend .sw{width:24px;height:14px;border-radius:4px;background:var(--muted)}
+.legend .sw.b{background-color:color-mix(in oklab,var(--muted) var(--booked-pct),#000);background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.16) 0 3px,transparent 3px 7px)}
+.legend .sw.m{outline:2px solid var(--ink);outline-offset:1px}
 
-.daytabs{display:none;gap:4px;overflow-x:auto}
-.daytabs button{flex:1 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:6px 10px;font-size:13px;display:flex;flex-direction:column;align-items:center;line-height:1.2}
-.daytabs button[aria-selected="true"]{background:var(--head-bg);color:var(--head-ink);border-color:var(--head-bg)}
-.daytabs small{font-size:11px;opacity:.75}
+.daytabs{display:none;gap:6px;overflow-x:auto}
+.daytabs button{flex:1 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:6px 12px;font-size:13px;font-weight:600;display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.daytabs button[aria-selected="true"]{background:var(--night);color:var(--night-ink);border-color:var(--night-line)}
+.daytabs small{font-size:11px;opacity:.75;font-weight:400}
 
-/* grid */
-.gridwrap{overflow-x:auto;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow)}
+/* לוח השבוע */
+.gridwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow)}
 .grid{display:grid;min-width:0}
-.dh{position:sticky;top:0;background:var(--head-bg);color:var(--head-ink);padding:8px 10px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-height:44px}
-.dh b{font-weight:700}
-.dh span{font-size:12px;color:var(--head-muted);font-variant-numeric:tabular-nums}
-.dh.today{background:#d4a94f;color:#0b0a08}
-.dh.today span{color:#3a2c0e}
-.dh .mini{margin-inline-start:auto;font-size:11px;border:1px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:1px 8px;opacity:.85}
+.dh{background:var(--night);color:var(--night-ink);padding:10px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-height:50px;border-inline-start:1px solid rgba(255,255,255,.07)}
+.dh b{font-weight:800;font-size:14.5px}
+.dh span{font-size:12px;color:var(--night-muted);font-variant-numeric:tabular-nums}
+.dh .now{font-style:normal;font-size:11px;font-weight:800;background:#0b0a08;color:#f0d595;border-radius:999px;padding:1px 8px}
+.dh.today{background:linear-gradient(135deg,#f6dc9c,#d4a44c);color:#0b0a08}
+.dh.today span{color:#4a3810}
+.dh .mini{margin-inline-start:auto;font-size:11px;font-weight:600;border:1px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:1px 9px;opacity:.8}
 .dh .mini:hover{opacity:1}
-.tc{border-top:1px solid var(--line);border-inline-start:1px solid var(--line-strong);padding:8px;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;color:var(--muted);display:flex;align-items:flex-start;justify-content:center}
-.tc.hour{color:var(--ink)}
-.corner{background:var(--head-bg)}
-.cell{border-top:1px solid var(--line);border-inline-start:1px solid var(--line);padding:5px;display:flex;flex-direction:column;gap:4px;min-height:44px;min-width:0}
+.corner{background:var(--night);border-inline-start:0}
+.tc{border-top:1px solid var(--line);padding:8px 6px;font-variant-numeric:tabular-nums;font-weight:600;font-size:12.5px;color:var(--muted);display:flex;align-items:flex-start;justify-content:center}
+.tc.hour{color:var(--ink);font-weight:800}
+.cell{border-top:1px solid var(--line);border-inline-start:1px solid var(--line);padding:4px 5px;display:flex;flex-direction:column;gap:4px;min-height:46px;min-width:0}
 .cell.hourline,.tc.hourline{border-top-color:var(--line-strong)}
-.cell.past{background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in oklab,var(--sunk) 75%,transparent) 6px 7px)}
-.cell.todaycol{background-color:color-mix(in oklab,var(--gold-soft) 50%,transparent)}
-.cw{display:flex;gap:3px;min-width:0}
-.chip{--cc:var(--muted);flex:1;display:flex;align-items:center;gap:6px;text-align:start;border:1.5px solid var(--cc);background:color-mix(in oklab,var(--cc) 9%,var(--surface));border-radius:7px;padding:3px 7px;font-size:12.5px;line-height:1.25;min-width:0}
-.chip .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.chip .sub{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1;font-size:11.5px}
-.chip .ck{flex:none;width:15px;height:15px;border-radius:4px;border:1.5px solid var(--cc);display:grid;place-items:center;font-size:11px;line-height:1;background:var(--surface)}
-.chip.booked{background:var(--cc);color:var(--surface)}
-.chip.booked .sub{color:color-mix(in oklab,var(--surface) 82%,transparent)}
-.chip.booked .ck{background:var(--surface);color:var(--cc);border-color:var(--surface)}
-.chip.mine{box-shadow:0 0 0 2px color-mix(in oklab,var(--cc) 30%,transparent)}
-.chip:hover{filter:brightness(1.05)}
-.chip:not(.booked):hover .ck::after{content:"✓";color:var(--cc)}
-.chip.busy{opacity:.55;pointer-events:none}
-.chip.dim{opacity:.4}
-.x{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:7px;width:22px;font-size:13px;line-height:1;padding:0}
+.cell.past{background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in oklab,var(--sunk) 70%,transparent) 6px 7px)}
+.cell.todaycol{background-color:color-mix(in oklab,var(--gold-soft) 45%,transparent)}
+.cw{display:flex;gap:4px;min-width:0}
+.chip{--cc:var(--muted);flex:1;display:flex;align-items:center;gap:7px;text-align:start;border:0;color:#fff;background-color:var(--cc);background-image:linear-gradient(180deg,rgba(255,255,255,.17),rgba(255,255,255,0) 65%);border-radius:9px;padding:5px 8px;font-size:12.5px;line-height:1.25;min-width:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 3px 10px -6px var(--cc);transition:transform .14s,box-shadow .14s,opacity .14s,filter .14s}
+.chip .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.chip .sub{color:rgba(255,255,255,.86);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1;font-size:11.5px}
+.chip .ck{flex:none;width:16px;height:16px;border-radius:50%;border:1.6px solid rgba(255,255,255,.9);display:grid;place-items:center;font-size:10px;font-weight:900;line-height:1}
+.chip:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 9px 18px -8px var(--cc)}
+.chip:not(.booked):hover .ck::after{content:"✓"}
+.chip.booked{background-color:color-mix(in oklab,var(--cc) var(--booked-pct),#000);background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.09) 0 4px,transparent 4px 9px);box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--cc) 75%,#000)}
+.chip.booked .ck{background:#fff;border-color:#fff;color:color-mix(in oklab,var(--cc) 75%,#000)}
+.chip.mine{outline:2px solid var(--ink);outline-offset:1px}
+.chip.busy{opacity:.6;pointer-events:none}
+.chip.dim{opacity:.32;filter:saturate(.5)}
+.x{flex:none;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);border-radius:8px;width:24px;font-size:14px;line-height:1;padding:0}
 .x:hover{color:var(--danger);border-color:var(--danger)}
-.add{border:1.5px dashed var(--line-strong);background:transparent;border-radius:7px;padding:3px 7px;font-size:12px;color:var(--muted);text-align:start;opacity:0;transition:opacity .12s}
+.add{border:1.5px dashed var(--line-strong);background:transparent;border-radius:9px;padding:4px 8px;font-size:12px;color:var(--muted);text-align:start;opacity:0;transition:opacity .12s}
 .cell:hover .add,.add:focus-visible{opacity:1}
 @media (hover:none){.add{opacity:.7}}
 .add:hover{border-color:var(--gold);color:var(--gold)}
-.empty-state{padding:36px 20px;text-align:center;color:var(--muted)}
+.empty-state{padding:40px 20px;text-align:center;color:var(--muted)}
 .empty-state h2{font-weight:800;color:var(--ink);margin:0 0 6px;font-size:22px}
 
-/* monthly summary */
-.mgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;min-width:0}
-.panel h2{font-weight:800;font-size:17px;margin:0;padding:12px 14px 8px}
+/* סיכום חודשי */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;min-width:0;box-shadow:var(--shadow-sm)}
+.panel h2{font-weight:800;font-size:17px;margin:0;padding:14px 16px 8px}
 .tblwrap{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
-.tbl th{font-weight:500;color:var(--muted);font-size:12px;text-align:start;padding:6px 14px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
-.tbl td{padding:8px 14px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl th{font-weight:500;color:var(--muted);font-size:12px;text-align:start;padding:6px 16px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+.tbl td{padding:10px 16px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
 .tbl td.n,.tbl th.n{text-align:center}
-.tbl tfoot td{font-weight:700;border-bottom:none;background:var(--sunk)}
+.tbl td.mixcell{width:34%;min-width:140px}
+.tbl td.mixcell .mix{height:8px;border-radius:4px}
+.tbl tfoot td{font-weight:800;border-bottom:none;background:var(--surface-2)}
 .tbl tr.link{cursor:pointer}
 .tbl tr.link:hover td{background:var(--gold-soft)}
-.tbl .bar{width:100%;min-width:70px;height:8px;border-radius:4px}
-.tbl .pct{font-weight:700;color:var(--gold)}
+.tbl .pct{font-weight:800;color:var(--gold)}
+.cnt{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
 
-/* dialog */
-dialog{border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);color:var(--ink);padding:0;width:min(460px,calc(100vw - 32px));box-shadow:var(--shadow)}
-dialog::backdrop{background:rgb(8 7 5 / .55)}
-.dlg{display:flex;flex-direction:column;gap:14px;padding:18px 18px 16px}
+/* חלונות */
+dialog{border:1px solid var(--line-strong);border-radius:20px;background:var(--surface);color:var(--ink);padding:0;width:min(460px,calc(100vw - 32px));box-shadow:0 30px 80px -24px rgb(0 0 0 / .55);overflow:hidden}
+dialog::backdrop{background:rgb(8 7 5 / .55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+dialog[open]{animation:pop .22s cubic-bezier(.2,.8,.3,1.15)}
+.dlg{display:flex;flex-direction:column;gap:14px;padding:20px 20px 18px}
 .dlg h3{margin:0;font-weight:800;font-size:20px;line-height:1.25;text-wrap:balance}
 .dlg .meta{color:var(--muted);font-size:13px;margin-top:-8px}
 .dlg label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
@@ -191,36 +245,60 @@ dialog::backdrop{background:rgb(8 7 5 / .55)}
 .dlg .err{color:var(--danger);font-size:13px;margin:0}
 .dlg .note{font-size:13px;color:var(--muted);margin:0}
 .dlg .gate{display:flex;align-items:center;gap:12px}
-.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
-.pick button{border:1.5px solid var(--cc);background:color-mix(in oklab,var(--cc) 10%,var(--surface));border-radius:var(--r);padding:10px;font-weight:600;display:flex;align-items:center;gap:8px;text-align:start}
-.pick button i{width:10px;height:10px;border-radius:50%;background:var(--cc);flex:none}
+.dlg .gate .logo{width:44px;height:44px}
+.band{--cc:var(--muted);position:relative;isolation:isolate;overflow:hidden;margin:-20px -20px 0;padding:16px 20px;background-color:var(--cc);color:#fff}
+.band.booked{background-color:color-mix(in oklab,var(--cc) var(--booked-pct),#000);background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 5px,transparent 5px 11px)}
+.band::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(260px 120px at 100% 0%,rgba(255,255,255,.24),transparent 70%)}
+.band h3{color:#fff}
+.dlg .band .meta{color:rgba(255,255,255,.88);margin-top:3px}
+.band .st{display:inline-block;background:rgba(255,255,255,.2);border-radius:999px;padding:1px 10px;font-size:12px;font-weight:700;margin-bottom:6px}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.pick button{--cc:var(--muted);border:0;background:var(--cc);background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 70%);color:#fff;border-radius:14px;padding:9px 10px;font-weight:700;display:flex;align-items:center;gap:9px;text-align:start;box-shadow:0 10px 20px -14px var(--cc);transition:transform .15s}
+.pick button:hover{transform:translateY(-2px)}
+.pick .av{width:28px;height:28px;background:rgba(255,255,255,.2);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
 .divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px}
 .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
 .list{display:flex;flex-direction:column;gap:6px}
 .list .li{display:flex;gap:8px;align-items:center}
-.list .li i{width:12px;height:12px;border-radius:50%;background:var(--cc);flex:none}
+.list .li i{width:14px;height:14px;border-radius:50%;background:var(--cc);flex:none}
 .list .li input{flex:1}
 .addrow{display:flex;gap:8px}
 .addrow input{flex:1}
 .sec{font-weight:700;color:var(--ink);font-size:14px;margin:0}
 
-.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--head-bg);color:#f6f1e7;border:1px solid var(--gold-line);padding:8px 8px 8px 16px;border-radius:999px;font-size:13.5px;box-shadow:var(--shadow);z-index:20;max-width:calc(100vw - 32px);display:flex;align-items:center;gap:6px}
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:#100e0a;color:#f6f1e7;border:1px solid rgba(228,188,104,.3);padding:8px 8px 8px 16px;border-radius:999px;font-size:13.5px;box-shadow:0 16px 40px -12px rgb(0 0 0 / .6);z-index:20;max-width:calc(100vw - 32px);display:flex;align-items:center;gap:6px}
 .toast span{padding-inline:8px 4px}
 .toast button{border:none;background:rgba(212,169,79,.2);color:#e9cf94;border-radius:999px;padding:4px 12px;font-weight:700}
 
-@media (max-width:900px){.mgrid{grid-template-columns:minmax(0,1fr)}}
+/* כניסה מדורגת בטעינה. רק המכלים הקבועים זזים, לא הסלוטים שמתרעננים כל 15 שניות */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.top,.tabs,#weekView>*,#monthView{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+.tabs{animation-delay:.05s}
+#summary{animation-delay:.1s}
+#toolbar,#filters{animation-delay:.15s}
+#weekView>.gridwrap{animation-delay:.2s}
+
+@media (max-width:900px){.summary{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:720px){
-  .summary{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .per{grid-column:1/-1}
-  .kpi{padding:10px}
-  .kpi .v{font-size:21px}
+  #app{padding-top:10px;gap:12px}
+  .top{padding:14px;border-radius:16px}
+  .brand h1{font-size:21px}
+  .logo{width:42px;height:42px}
   .monthnav{margin-inline-start:0;width:100%;justify-content:space-between}
+  .tab{flex:0 0 auto;min-width:118px}
+  .ringcard{padding:12px 16px}
+  .ring{width:78px;height:78px}
+  .people{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .ptile{padding:10px 12px;gap:6px 8px;border-radius:14px}
+  .ptile .av{display:none}
+  .ptile .pn b{font-size:14px}
+  .ptile .pn small{font-size:11.5px}
+  .ptile .pp{font-size:18px}
   .daytabs{display:flex}
   .legend{display:none}
-  .tab{padding:6px 11px 5px}
-  .brand h1{font-size:19px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -228,7 +306,7 @@ dialog::backdrop{background:rgb(8 7 5 / .55)}
   <header class="top">
     <div class="brand">
       <div class="logo" aria-hidden="true"><span>OZ</span></div>
-      <div><h1>לוח סלוטי מיקוד</h1><small>איציק עוז · יועצות עסקיות</small></div>
+      <div><h1>לוח סלוטי <em>מיקוד</em></h1><small>איציק עוז · יועצות עסקיות</small></div>
     </div>
     <div id="who"></div>
     <nav class="monthnav" aria-label="מעבר בין חודשים">
@@ -265,7 +343,7 @@ const POLL_MS = 15000;
 const DEFAULT_CFG = { consultants: [], locations: [], start: '09:00', end: '16:00', step: 30, days: [0,1,2,3,4] };
 const CONF = window.FS_CONFIG || {};
 
-/* storage is best effort: private windows can refuse it */
+/* שמירה בדפדפן היא "אם אפשר": חלון פרטי יכול לחסום אותה */
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
   set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} }
@@ -283,7 +361,7 @@ const S = {
   newLoc: '', busy: new Set()
 };
 
-/* ---------- helpers ---------- */
+/* ---------- עזרים ---------- */
 function pad(n) { return String(n).padStart(2, '0'); }
 function ymd(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
 function parseYmd(s) { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); }
@@ -316,6 +394,8 @@ function isConsultant() { return S.me?.role === 'consultant' && !!cons(S.me.id);
 function signedIn() { return !!S.role; }
 function newId() { return 'c' + Math.random().toString(36).slice(2, 8); }
 function pct(b, t) { return t ? Math.round(b / t * 100) : 0; }
+function initial(name) { return esc(String(name || '').trim().charAt(0) || '?'); }
+function av(name, cls) { return '<span class="av' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + initial(name) + '</span>'; }
 
 function monthWeeks() {
   const m = S.month.getMonth(), last = lastOfMonth(S.month), out = [];
@@ -355,7 +435,7 @@ function errMsg(e) {
   return 'הפעולה לא נשמרה. נסו שוב.';
 }
 
-/* ---------- API (Supabase RPC) ---------- */
+/* ---------- שרת (פונקציות Supabase) ---------- */
 async function rpc(fn, args) {
   let r;
   try {
@@ -410,7 +490,7 @@ async function quickBook(id) {
   finally { S.busy.delete(id); await refresh(); }
 }
 
-/* ---------- render ---------- */
+/* ---------- ציור המסך ---------- */
 function setBanner(html, kind) {
   document.getElementById('banner').innerHTML = html ? '<div class="banner ' + (kind || '') + '"><p>' + html + '</p></div>' : '';
 }
@@ -432,9 +512,9 @@ function renderWho() {
   const el = document.getElementById('who');
   if (!signedIn()) { el.innerHTML = ''; return; }
   if (!S.me) { el.innerHTML = '<button class="btn" data-act="who">בחרו מי אתם</button>'; return; }
-  const consultant = isConsultant();
-  el.innerHTML = '<div class="who" style="--cc:' + (consultant ? consColor(S.me.id) : 'var(--gold)') + '"><i class="dot"></i><div><div>' +
-    esc(consultant ? consName(S.me.id) : S.me.name) + '</div><div class="role">' + (consultant ? 'יועצת עסקית' : 'תיאום ומכירות') +
+  const consultant = isConsultant(), name = consultant ? consName(S.me.id) : S.me.name;
+  el.innerHTML = '<div class="who" style="--cc:' + (consultant ? consColor(S.me.id) : 'var(--gold)') + '">' + av(name, consultant ? '' : 'gold') + '<div class="nmw"><div>' +
+    esc(name) + '</div><div class="role">' + (consultant ? 'יועצת עסקית' : 'תיאום ומכירות') +
     '</div></div><button class="btn ghost" data-act="who">החלפה</button></div>';
 }
 
@@ -443,14 +523,25 @@ function renderMonthLbl() {
   document.getElementById('monthLbl').innerHTML = '<b>' + MONTHS[S.month.getMonth()] + ' ' + S.month.getFullYear() + '</b><span>' + (cur ? 'החודש הנוכחי' : '&nbsp;') + '</span>';
 }
 
+/* פס דק בצבעי היועצות: כל יועצת מקבלת רוחב לפי מספר הסלוטים שלה */
+function mixBar(list) {
+  return '<span class="mix" aria-hidden="true">' + [...perConsultant(list)].filter(([, p]) => p.b + p.o)
+    .map(([id, p]) => '<i style="--cc:' + consColor(id) + ';flex:' + (p.b + p.o) + '"></i>').join('') + '</span>';
+}
+
 function renderTabs(weeks) {
   const t = todayYmd();
+  const monthList = [...S.slots.values()].filter(inMonth);
   document.getElementById('tabs').innerHTML = weeks.map((w, i) => {
-    const a = w.dates[0], b = w.dates[w.dates.length - 1];
+    const a = w.dates[0], b = w.dates[w.dates.length - 1], list = weekSlotList(w), k = count(list);
     const cur = ymd(w.start) <= t && t <= ymd(addDays(w.start, 6));
-    return '<button class="tab' + (cur ? ' cur' : '') + '" role="tab" data-act="tab" data-tab="' + i + '" aria-selected="' + (S.tab === i) + '"><b>שבוע ' + (i + 1) + '</b><small>' +
-      (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + '</small></button>';
-  }).join('') + '<button class="tab sum" role="tab" data-act="tab" data-tab="sum" aria-selected="' + (S.tab === 'sum') + '"><b>סיכום חודשי</b><small>' + MONTHS[S.month.getMonth()] + '</small></button>';
+    return '<button class="tab' + (cur ? ' cur' : '') + '" role="tab" data-act="tab" data-tab="' + i + '" aria-selected="' + (S.tab === i) + '"><span class="tt"><b>שבוע ' + (i + 1) + '</b>' +
+      (k.t ? '<span class="pc">' + k.p + '%</span>' : '') + '</span><small>' + (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + (cur ? ' · השבוע' : '') + '</small>' + mixBar(list) + '</button>';
+  }).join('') + '<button class="tab sum" role="tab" data-act="tab" data-tab="sum" aria-selected="' + (S.tab === 'sum') + '"><span class="tt"><b>סיכום חודשי</b>' +
+    (monthList.length ? '<span class="pc">' + count(monthList).p + '%</span>' : '') + '</span><small>' + MONTHS[S.month.getMonth()] + '</small>' + mixBar(monthList) + '</button>';
+  // בנייד שורת הטאבים נגללת לצדדים: לוודא שהטאב הנבחר נראה, בלי להזיז את הדף למעלה או למטה
+  const box = document.getElementById('tabs'), sel = box.querySelector('[aria-selected="true"]');
+  if (sel) { const a = sel.getBoundingClientRect(), b = box.getBoundingClientRect(); if (a.left < b.left || a.right > b.right) box.scrollLeft += (a.left + a.width / 2) - (b.left + b.width / 2); }
 }
 
 function weekSlotList(w) { const set = new Set(w.dates.map(ymd)); return [...S.slots.values()].filter(s => set.has(s.date)); }
@@ -463,20 +554,26 @@ function perConsultant(list) {
   }
   return per;
 }
-function kpi(k, v, cls) { return '<div class="kpi ' + (cls || '') + '"><div class="k">' + k + '</div><div class="v num">' + v + '</div></div>'; }
+/* כרטיס צבעוני ליועצת. בתצוגת השבוע הכרטיס הוא גם כפתור סינון */
+function tileHTML(id, p, interactive) {
+  const t = p.b + p.o, name = consName(id, p.name), tag = interactive ? 'button' : 'div';
+  const attrs = interactive ? ' data-act="fcons" data-id="' + esc(id) + '" aria-pressed="' + S.filter.cons.has(id) + '" title="לחיצה מציגה בלוח רק את הסלוטים של ' + esc(name) + '"' : '';
+  return '<' + tag + ' class="ptile" style="--cc:' + consColor(id) + '"' + attrs + '>' + av(name) +
+    '<span class="pn"><b>' + esc(name) + '</b><small>' + (t ? p.o + ' פנויים · ' + p.b + ' נתפסו' : 'אין סלוטים') + '</small></span>' +
+    '<span class="pp">' + (t ? pct(p.b, t) + '<small>%</small>' : '') + '</span>' +
+    '<span class="pbar" title="' + p.b + ' נתפסו מתוך ' + t + '"><i style="width:' + pct(p.b, t) + '%"></i></span></' + tag + '>';
+}
+function statsHTML(list, interactive) {
+  const c = count(list), per = [...perConsultant(list)], tiles = per.map(([id, p]) => tileHTML(id, p, interactive)).join('');
+  const cols = per.length <= 4 ? per.length : Math.min(4, Math.ceil(per.length / 2));
+  return '<div class="ringcard"><div class="ring" style="--p:' + c.p + '"><div><b class="num">' + c.p + '<small>%</small></b><span>תפוסה</span></div></div>' +
+    '<dl class="stats"><div><dt>סלוטים</dt><dd class="num">' + c.t + '</dd></div><div><dt>פנויים</dt><dd class="num">' + c.o + '</dd></div><div><dt>נתפסו</dt><dd class="num g">' + c.b + '</dd></div></dl></div>' +
+    '<div class="people' + (interactive && S.filter.cons.size ? ' filtering' : '') + '" style="--cols:' + (cols || 1) + '">' + (tiles || '<div class="noone">' + (S.ready ? 'אין עדיין יועצות בלוח.' : 'טוען…') + '</div>') + '</div>';
+}
 
 function renderSummary() {
   const w = curWeek(); if (!w) return;
-  const list = weekSlotList(w), c = count(list), per = perConsultant(list);
-  const max = Math.max(1, ...[...per.values()].map(p => p.b + p.o));
-  const rows = [...per].map(([id, p]) => {
-    const t = p.b + p.o;
-    return '<div class="row" style="--cc:' + consColor(id) + '"><span class="nmc"><i></i>' + esc(consName(id, p.name)) +
-      '</span><span class="bar" title="' + p.b + ' נתפסו מתוך ' + t + '"><span class="b" style="width:' + (p.b / max * 100) + '%"></span><span class="o" style="width:' + (p.o / max * 100) + '%"></span></span><span class="cnt">' + p.b + '/' + t + '</span></div>';
-  }).join('');
-  document.getElementById('summary').innerHTML =
-    kpi('סלוטים', c.t) + kpi('פנויים', c.o) + kpi('נתפסו', c.b, 'booked') + kpi('אחוז תפוסה', c.p + '<small>%</small>') +
-    '<div class="per">' + (rows || '<span class="cnt">' + (S.ready ? 'אין עדיין יועצות בלוח.' : 'טוען…') + '</span>') + '</div>';
+  document.getElementById('summary').innerHTML = statsHTML(weekSlotList(w), true);
 }
 
 function renderToolbar() {
@@ -500,10 +597,10 @@ function renderToolbar() {
 function renderFilters() {
   const el = document.getElementById('filters');
   if (!S.cfg.consultants.length) { el.innerHTML = ''; return; }
-  let h = S.cfg.consultants.map(c => '<button class="fchip" data-act="fcons" data-id="' + c.id + '" aria-pressed="' + S.filter.cons.has(c.id) + '" style="--cc:var(--c' + (c.color % PALETTE) + ')"><i></i>' + esc(c.name) + '</button>').join('');
-  h += '<button class="fchip" data-act="fopen" aria-pressed="' + S.filter.openOnly + '">רק פנויים</button>';
+  let h = '<button class="fchip" data-act="fopen" aria-pressed="' + S.filter.openOnly + '">רק פנויים</button>';
   if (S.cfg.locations.length) h += '<select id="fLoc" aria-label="סינון לפי מיקום"><option value="">כל המיקומים</option>' + S.cfg.locations.map(l => '<option' + (l === S.filter.loc ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select>';
-  h += '<div class="legend"><span><i class="sw"></i>פנוי</span><span><i class="sw b"></i>נתפס</span></div>';
+  h += S.filter.cons.size ? '<button class="fchip clear" data-act="fclear">הצגת כל היועצות ✕</button>' : '<span class="hint">לחיצה על כרטיס של יועצת מציגה רק את הסלוטים שלה</span>';
+  h += '<div class="legend"><span><i class="sw"></i>פנוי</span><span><i class="sw b"></i>נתפס</span>' + (isConsultant() ? '<span><i class="sw m"></i>הסלוטים שלך</span>' : '') + '</div>';
   el.innerHTML = h;
 }
 
@@ -547,7 +644,7 @@ function renderGrid() {
   let h = '<div class="dh corner"></div>';
   for (const d of dates) {
     const ds = ymd(d);
-    h += '<div class="dh' + (ds === t ? ' today' : '') + '"><b>יום ' + DAY_NAMES[d.getDay()] + '</b><span>' + ddmm(d) + '</span>' +
+    h += '<div class="dh' + (ds === t ? ' today' : '') + '"><b>יום ' + DAY_NAMES[d.getDay()] + '</b><span>' + ddmm(d) + '</span>' + (ds === t ? '<em class="now">היום</em>' : '') +
       (me && !isPast(ds) ? '<button class="mini" data-act="openDay" data-date="' + ds + '" title="פתיחת סלוטים בכל שעות היום">כל היום</button>' : '') + '</div>';
   }
   for (const tm of times) {
@@ -576,28 +673,19 @@ function renderGrid() {
 }
 
 function renderMonth(weeks) {
-  const all = [...S.slots.values()].filter(inMonth), c = count(all), per = perConsultant(all);
-  const max = Math.max(1, ...[...per.values()].map(p => p.b + p.o));
-  const crow = [...per].map(([id, p]) => {
-    const t = p.b + p.o;
-    return '<tr style="--cc:' + consColor(id) + '"><td><span class="nmc"><i></i>' + esc(consName(id, p.name)) + '</span></td><td class="n">' + t + '</td><td class="n">' + p.o + '</td><td class="n">' + p.b +
-      '</td><td class="n pct">' + pct(p.b, t) + '%</td><td><span class="bar"><span class="b" style="width:' + (p.b / max * 100) + '%"></span><span class="o" style="width:' + (p.o / max * 100) + '%"></span></span></td></tr>';
-  }).join('');
+  const all = [...S.slots.values()].filter(inMonth), c = count(all);
   const wrow = weeks.map((w, i) => {
-    const k = count(weekSlotList(w)), a = w.dates[0], b = w.dates[w.dates.length - 1];
-    return '<tr class="link" data-act="tab" data-tab="' + i + '" tabindex="0"><td><b>שבוע ' + (i + 1) + '</b> <span class="cnt">' + (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + '</span></td><td class="n">' + k.t + '</td><td class="n">' + k.o + '</td><td class="n">' + k.b + '</td><td class="n pct">' + k.p + '%</td></tr>';
+    const list = weekSlotList(w), k = count(list), a = w.dates[0], b = w.dates[w.dates.length - 1];
+    return '<tr class="link" data-act="tab" data-tab="' + i + '" tabindex="0"><td><b>שבוע ' + (i + 1) + '</b> <span class="cnt">' + (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + '</span></td><td class="mixcell">' + mixBar(list) +
+      '</td><td class="n">' + k.t + '</td><td class="n">' + k.o + '</td><td class="n">' + k.b + '</td><td class="n pct">' + k.p + '%</td></tr>';
   }).join('');
   document.getElementById('monthView').innerHTML =
-    '<section class="summary" style="grid-template-columns:repeat(4,minmax(0,1fr))" aria-label="סיכום החודש">' + kpi('סלוטים שנפתחו', c.t) + kpi('פנויים', c.o) + kpi('נתפסו', c.b, 'booked') + kpi('אחוז תפוסה', c.p + '<small>%</small>') + '</section>' +
-    '<div class="mgrid">' +
-      '<div class="panel"><h2>לפי יועצת</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>יועצת</th><th class="n">סלוטים</th><th class="n">פנויים</th><th class="n">נתפסו</th><th class="n">תפוסה</th><th style="width:30%"></th></tr></thead><tbody>' +
-        (crow || '<tr><td colspan="6">אין עדיין יועצות בלוח.</td></tr>') + '</tbody><tfoot><tr><td>סה״כ</td><td class="n">' + c.t + '</td><td class="n">' + c.o + '</td><td class="n">' + c.b + '</td><td class="n">' + c.p + '%</td><td></td></tr></tfoot></table></div></div>' +
-      '<div class="panel"><h2>לפי שבוע</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>שבוע</th><th class="n">סלוטים</th><th class="n">פנויים</th><th class="n">נתפסו</th><th class="n">תפוסה</th></tr></thead><tbody>' + wrow +
-        '</tbody><tfoot><tr><td>סה״כ</td><td class="n">' + c.t + '</td><td class="n">' + c.o + '</td><td class="n">' + c.b + '</td><td class="n">' + c.p + '%</td></tr></tfoot></table></div></div>' +
-    '</div>';
+    '<section class="summary" aria-label="סיכום החודש">' + statsHTML(all, false) + '</section>' +
+    '<div class="panel"><h2>לפי שבוע</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>שבוע</th><th>חלוקה בין היועצות</th><th class="n">סלוטים</th><th class="n">פנויים</th><th class="n">נתפסו</th><th class="n">תפוסה</th></tr></thead><tbody>' + wrow +
+      '</tbody><tfoot><tr><td>סה״כ</td><td>' + mixBar(all) + '</td><td class="n">' + c.t + '</td><td class="n">' + c.o + '</td><td class="n">' + c.b + '</td><td class="n">' + c.p + '%</td></tr></tfoot></table></div></div>';
 }
 
-/* ---------- dialogs ---------- */
+/* ---------- חלונות ---------- */
 const dlg = document.getElementById('dlg');
 const dlgBody = document.getElementById('dlgBody');
 let dlgSubmit = null, dlgLocked = false;
@@ -642,7 +730,7 @@ async function signIn(code) {
 function whoDialog() {
   const cs = S.cfg.consultants;
   openDlg('<h3>מי נכנס/ת ללוח?</h3><p class="note">הבחירה נשמרת בדפדפן הזה. אפשר להחליף בכל רגע.</p>' +
-    (cs.length ? '<p class="sec">יועצות עסקיות</p><div class="pick">' + cs.map(c => '<button type="submit" value="c:' + c.id + '" style="--cc:var(--c' + (c.color % PALETTE) + ')"><i></i>' + esc(c.name) + '</button>').join('') + '</div><div class="divider">או</div>' : '') +
+    (cs.length ? '<p class="sec">יועצות עסקיות</p><div class="pick">' + cs.map(c => '<button type="submit" value="c:' + c.id + '" style="--cc:var(--c' + (c.color % PALETTE) + ')">' + av(c.name) + esc(c.name) + '</button>').join('') + '</div><div class="divider">או</div>' : '') +
     '<p class="sec">צוות מכירות ותיאום</p><label for="coName">השם שלך (יופיע ליד כל סלוט שתסמנו כנתפס)<input type="text" id="coName" name="coName" value="' + esc(S.me?.role === 'coordinator' ? S.me.name : '') + '" autocomplete="name"></label>' +
     '<div class="acts"><button class="btn primary" type="submit" value="co">כניסה כצוות תיאום</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">סגירה</button></div>',
     async (action, fd) => {
@@ -662,8 +750,8 @@ function slotDialog(id) {
   const name = consName(s.consultantId, s.consultantName);
   const booked = s.status === 'booked';
   const c = s.client || {};
-  const head = '<h3>' + esc(name) + ' · ' + s.time + '</h3><p class="meta">יום ' + DAY_NAMES[d.getDay()] + ' ' + ddmm(d) + '.' + d.getFullYear() +
-    (s.location ? ' · ' + esc(s.location) : '') + ' · ' + (booked ? 'נתפס' : 'פנוי') + '</p>';
+  const head = '<div class="band' + (booked ? ' booked' : '') + '" style="--cc:' + consColor(s.consultantId) + '"><span class="st">' + (booked ? '✓ נתפס' : 'פנוי') + '</span><h3>' + esc(name) + ' · ' + s.time +
+    '</h3><p class="meta">יום ' + DAY_NAMES[d.getDay()] + ' ' + ddmm(d) + '.' + d.getFullYear() + (s.location ? ' · ' + esc(s.location) : '') + '</p></div>';
   const locSel = S.cfg.locations.length ? '<label for="fLocSel">מיקום<select id="fLocSel" name="location"><option value="">ללא</option>' +
     [...new Set([...S.cfg.locations, s.location].filter(Boolean))].map(l => '<option' + (l === s.location ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select></label>' : '';
   openDlg(head + (booked ? '<p class="note">סומן כנתפס על ידי ' + esc(s.bookedBy || '—') + (s.bookedAt ? ' ב-' + new Date(s.bookedAt).toLocaleDateString('he-IL') : '') + '. פרטי הלקוח לא חובה.</p>' : '') +
@@ -739,7 +827,7 @@ function settingsDialog() {
   paint();
 }
 
-/* ---------- bulk actions ---------- */
+/* ---------- פעולות על הרבה סלוטים ---------- */
 async function copyPrevWeek() {
   const w = curWeek(); if (!w) return;
   const targets = new Set(w.dates.map(ymd));
@@ -775,7 +863,7 @@ function clearMyWeek() {
   });
 }
 
-/* ---------- events ---------- */
+/* ---------- לחיצות ואירועים ---------- */
 document.getElementById('app').addEventListener('click', async e => {
   const b = e.target.closest('[data-act]'); if (!b) return;
   const act = b.dataset.act;
@@ -786,6 +874,7 @@ document.getElementById('app').addEventListener('click', async e => {
     if (act === 'day') { S.day = +b.dataset.day; return render(); }
     if (act === 'fcons') { const id = b.dataset.id; S.filter.cons.has(id) ? S.filter.cons.delete(id) : S.filter.cons.add(id); return render(); }
     if (act === 'fopen') { S.filter.openOnly = !S.filter.openOnly; return render(); }
+    if (act === 'fclear') { S.filter.cons.clear(); return render(); }
     if (!signedIn()) return codeDialog();
     if (act === 'slot') {
       const s = S.slots.get(b.dataset.id); if (!s) return;
@@ -822,7 +911,7 @@ document.getElementById('nextMonth').onclick = () => goMonth(new Date(S.month.ge
 document.getElementById('thisMonth').onclick = () => { S.day = new Date().getDay(); goMonth(new Date()); };
 matchMedia('(max-width:720px)').addEventListener('change', () => render());
 
-/* theme: follows the system unless the viewer picks one */
+/* מצב בהיר/כהה: לפי המערכת, אלא אם הצופה בחר */
 (function () {
   const saved = store.get('fs-theme'); if (saved) document.documentElement.dataset.theme = saved;
   document.getElementById('themeBtn').onclick = () => {
@@ -832,7 +921,7 @@ matchMedia('(max-width:720px)').addEventListener('change', () => render());
   };
 })();
 
-/* ---------- boot ---------- */
+/* ---------- הפעלה ---------- */
 setInterval(() => { if (S.role && document.visibilityState === 'visible') refresh(); }, POLL_MS);
 document.addEventListener('visibilitychange', () => { if (S.role && document.visibilityState === 'visible') refresh(); });
 render();
