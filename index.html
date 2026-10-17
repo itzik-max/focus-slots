@@ -132,7 +132,7 @@ textarea{resize:vertical;min-height:64px;width:100%}
 .ringcard{position:relative;isolation:isolate;overflow:hidden;background:var(--night);color:var(--night-ink);border:1px solid var(--night-line);border-radius:var(--r-lg);padding:14px 20px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow-sm)}
 .ringcard::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(220px 140px at 100% 0%,rgba(228,188,104,.2),transparent 70%)}
 .ring{--p:0;position:relative;width:90px;height:90px;flex:none;display:grid;place-items:center;text-align:center}
-.ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(#e4bc68 calc(var(--p) * 1%),rgba(255,255,255,.1) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px));mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px))}
+.ring::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ring,#e4bc68) calc(var(--p) * 1%),rgba(255,255,255,.1) 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px));mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px))}
 .ring b{display:block;font-weight:900;font-size:25px;line-height:1}
 .ring b small{font-size:13px;font-weight:600;margin-inline-start:1px}
 .ring span{display:block;font-size:10.5px;color:var(--night-muted);margin-top:3px}
@@ -270,6 +270,61 @@ dialog[open]{animation:pop .22s cubic-bezier(.2,.8,.3,1.15)}
 .toast span{padding-inline:8px 4px}
 .toast button{border:none;background:rgba(212,169,79,.2);color:#e9cf94;border-radius:999px;padding:4px 12px;font-weight:700}
 
+/* סלוט שנתפס: בגוון בהיר, שם היועצת מחוק בקו, ובצד שם מי ששריין */
+.chip.booked{background-color:color-mix(in oklab,var(--cc) 13%,var(--surface));background-image:none;color:var(--ink);box-shadow:inset 0 0 0 1.5px color-mix(in oklab,var(--cc) 55%,transparent)}
+.chip.booked .nm{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--cc);color:var(--muted)}
+.chip.booked .sub{color:var(--ink);font-weight:600}
+.chip.booked .ck{background:var(--cc);border-color:var(--cc);color:#fff}
+.chip.booked:hover{box-shadow:inset 0 0 0 1.5px var(--cc),0 8px 16px -10px var(--cc)}
+.chip .by{flex:none;max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px;font-weight:800;line-height:1.5;background:var(--cc);color:#fff;border-radius:999px;padding:0 7px}
+.legend .sw.b{background:color-mix(in oklab,var(--muted) 14%,var(--surface));box-shadow:inset 0 0 0 1.5px var(--muted);background-image:linear-gradient(transparent calc(50% - 1px),var(--muted) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
+
+/* טבעת לרוחב: ליועצת בתצוגה האישית ובדשבורד */
+.stats dd.m{color:var(--night-muted)}
+.ringcard.row{flex-wrap:wrap;gap:16px 30px}
+.ringcard.row .stats{display:flex;flex-wrap:wrap;gap:10px 34px;flex:0 1 auto;min-width:0}
+.ringcard.row .stats div{flex-direction:column;align-items:flex-start;gap:0}
+.ringcard.row .stats dd{font-size:28px}
+.ringcard .focus{flex:1 1 240px;margin:0;font-size:13.5px;line-height:1.55;color:var(--night-ink);border-inline-start:2px solid var(--night-gold);padding-inline-start:14px}
+.ringcard .focus b{color:var(--night-gold);font-weight:700}
+.solo .summary{grid-template-columns:minmax(0,1fr)}
+
+/* דשבורד */
+.dash{display:flex;flex-direction:column;gap:14px}
+.dash .summary{grid-template-columns:minmax(0,1fr)}
+.dgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;align-items:start}
+.solo-dash .dgrid{grid-template-columns:minmax(0,1fr)}
+.ph{display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px;flex-wrap:wrap;padding:14px 16px 8px}
+.panel .ph h2{padding:0}
+.panel .empty{padding:4px 16px 18px;color:var(--muted);margin:0}
+.pname{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.pname .av{width:26px;height:26px;font-size:12px}
+.tbl td.barcell{width:24%;min-width:120px}
+.sbar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--sunk);gap:1.5px}
+.sbar .b{background:var(--cc)}
+.sbar .f{background:color-mix(in oklab,var(--cc) 35%,var(--surface))}
+.sbar .g{background:repeating-linear-gradient(135deg,var(--line-strong) 0 3px,transparent 3px 6px)}
+.slegend{display:flex;gap:12px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.slegend span{display:inline-flex;align-items:center;gap:5px}
+.slegend i{width:14px;height:8px;border-radius:3px;display:inline-block}
+.slegend i.g{background:repeating-linear-gradient(135deg,var(--line-strong) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.gbar{display:block;height:8px;border-radius:4px;background:var(--sunk);overflow:hidden}
+.gbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-hi),var(--gold));border-radius:4px}
+
+/* הגדרות: אנשים וקישורים */
+dialog{max-height:calc(100dvh - 32px);overflow:auto}
+dialog.wide{width:min(720px,calc(100vw - 32px))}
+.plist{display:flex;flex-direction:column;gap:6px}
+.prow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.prow input{flex:1 1 150px}
+.prow .dot{width:24px;height:24px;flex:none;padding:0;border-radius:50%;background:var(--cc);border:3px solid var(--surface);box-shadow:0 0 0 1.5px var(--cc)}
+.prow .av{width:24px;height:24px;font-size:11px}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+a.btn{color:inherit;text-decoration:none}
+.mylink{display:flex;gap:10px;align-items:center;background:var(--surface-2);border:1px solid var(--gold-line);border-radius:12px;padding:10px 12px}
+.mylink .hint{flex:1}
+@media (max-width:900px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+
 /* כניסה מדורגת בטעינה. רק המכלים הקבועים זזים, לא הסלוטים שמתרעננים כל 15 שניות */
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
@@ -306,7 +361,7 @@ dialog[open]{animation:pop .22s cubic-bezier(.2,.8,.3,1.15)}
   <header class="top">
     <div class="brand">
       <div class="logo" aria-hidden="true"><span>OZ</span></div>
-      <div><h1>לוח סלוטי <em>מיקוד</em></h1><small>איציק עוז · יועצות עסקיות</small></div>
+      <div><h1>לוח סלוטי <em>מיקוד</em></h1><small id="brandSub">איציק עוז · יועצות עסקיות</small></div>
     </div>
     <div id="who"></div>
     <nav class="monthnav" aria-label="מעבר בין חודשים">
@@ -342,20 +397,22 @@ const PALETTE = 8;
 const POLL_MS = 15000;
 const DEFAULT_CFG = { consultants: [], locations: [], start: '09:00', end: '16:00', step: 30, days: [0,1,2,3,4] };
 const CONF = window.FS_CONFIG || {};
+const ROLE_LABEL = { admin: 'מנהל הלוח', team: 'מכירות ומשרד', consultant: 'יועצת עסקית' };
 
 /* שמירה בדפדפן היא "אם אפשר": חלון פרטי יכול לחסום אותה */
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
   set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} }
 };
+store.set('fs-me', null);
 
+/* מי נכנס נקבע לפי הקוד שבקישור האישי. השרת מחזיר את התפקיד והשם */
 const S = {
-  code: store.get('fs-code'), role: null,
+  code: store.get('fs-code'), me: null,
   cfg: { ...DEFAULT_CFG }, ready: false,
-  slots: new Map(), loading: false, loadSeq: 0,
+  slots: new Map(), loadSeq: 0,
   month: firstOfMonth(new Date()),
   tab: null,
-  me: JSON.parse(store.get('fs-me') || 'null'),
   filter: { cons: new Set(), loc: '', openOnly: false },
   day: new Date().getDay(),
   newLoc: '', busy: new Set()
@@ -381,7 +438,8 @@ function timesList() {
 function slotId(date, time, cid) { return date + '_' + time.replace(':', '') + '_' + cid; }
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function cons(id) { return S.cfg.consultants.find(c => c.id === id); }
-function consColor(id) { const c = cons(id); return c ? 'var(--c' + (c.color % PALETTE) + ')' : 'var(--muted)'; }
+function colorVar(n) { return 'var(--c' + ((n || 0) % PALETTE) + ')'; }
+function consColor(id) { const c = cons(id); return c ? colorVar(c.color) : 'var(--muted)'; }
 function consName(id, fallback) { return cons(id)?.name || fallback || 'יועצת שהוסרה'; }
 function isPast(date, time) {
   const now = new Date(), d = parseYmd(date);
@@ -389,13 +447,14 @@ function isPast(date, time) {
   else d.setHours(23, 59);
   return d < now;
 }
-function saveMe(me) { S.me = me; store.set('fs-me', me ? JSON.stringify(me) : null); }
-function isConsultant() { return S.me?.role === 'consultant' && !!cons(S.me.id); }
-function signedIn() { return !!S.role; }
-function newId() { return 'c' + Math.random().toString(36).slice(2, 8); }
+function signedIn() { return !!S.me; }
+function isConsultant() { return S.me?.role === 'consultant'; }
+function isAdmin() { return S.me?.role === 'admin'; }
+function boardLink(token) { return location.origin + location.pathname + '#k=' + token; }
 function pct(b, t) { return t ? Math.round(b / t * 100) : 0; }
 function initial(name) { return esc(String(name || '').trim().charAt(0) || '?'); }
 function av(name, cls) { return '<span class="av' + (cls ? ' ' + cls : '') + '" aria-hidden="true">' + initial(name) + '</span>'; }
+function rangeLbl(w) { const a = w.dates[0], b = w.dates[w.dates.length - 1]; return a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b); }
 
 function monthWeeks() {
   const m = S.month.getMonth(), last = lastOfMonth(S.month), out = [];
@@ -408,13 +467,22 @@ function monthWeeks() {
 function curWeek() { const w = monthWeeks(); return typeof S.tab === 'number' ? w[Math.min(S.tab, w.length - 1)] : null; }
 function defaultTab() {
   const t = todayYmd(), ws = monthWeeks();
-  const i = ws.findIndex(w => ymd(w.start) <= t && t <= ymd(addDays(w.start, 6)));
+  let i = ws.findIndex(w => ymd(w.start) <= t && t <= ymd(addDays(w.start, 6)));
+  // בשישי ובשבת השבוע כבר נגמר: פותחים ישר על השבוע הבא
+  if (i >= 0 && i + 1 < ws.length && ws[i].dates.every(d => isPast(ymd(d)))) i++;
   return i >= 0 ? i : 0;
 }
 function inMonth(s) { const d = parseYmd(s.date); return d.getMonth() === S.month.getMonth() && S.cfg.days.includes(d.getDay()); }
+/* נפתחו = כל הסלוטים. פנויים קדימה = פנויים שעוד לא עבר זמנם. לא נוצלו = פנויים שזמנם עבר */
 function count(list) {
-  const b = list.filter(s => s.status === 'booked').length;
-  return { t: list.length, b, o: list.length - b, p: pct(b, list.length) };
+  let b = 0, fut = 0, gone = 0;
+  for (const s of list) { if (s.status === 'booked') b++; else if (isPast(s.date, s.time)) gone++; else fut++; }
+  return { t: list.length, b, o: fut + gone, fut, gone, p: pct(b, list.length) };
+}
+function perConsultant(list) {
+  const groups = new Map(S.cfg.consultants.map(c => [c.id, []]));
+  for (const s of list) { if (!groups.has(s.consultantId)) groups.set(s.consultantId, []); groups.get(s.consultantId).push(s); }
+  return new Map([...groups].map(([id, l]) => [id, { ...count(l), name: l[0]?.consultantName }]));
 }
 
 let toastT;
@@ -430,7 +498,7 @@ function toast(msg, actions) {
 }
 function errMsg(e) {
   if (e && e.userMsg) return e.userMsg;
-  if (e?.message === 'bad_code') return 'קוד הכניסה לא נכון.';
+  if (e?.message === 'bad_code') return 'הקוד או הקישור לא תקינים.';
   if (e?.network) return 'אין חיבור לשרת. בדקו את האינטרנט ונסו שוב.';
   return 'הפעולה לא נשמרה. נסו שוב.';
 }
@@ -447,45 +515,52 @@ async function rpc(fn, args) {
   const body = text ? JSON.parse(text) : null;
   if (!r.ok) {
     const err = { message: body?.message || 'error', status: r.status };
-    if (err.message === 'bad_code') onBadCode();
+    if (err.message === 'bad_code' && fn !== 'fs_login' && S.me) onBadCode();
     throw err;
   }
   return body;
 }
-function onBadCode() {
-  S.code = null; S.role = null; store.set('fs-code', null);
-  setTimeout(codeDialog);
+function signOut() {
+  S.code = null; S.me = null; S.ready = false; S.slots = new Map(); S.filter.cons.clear();
+  store.set('fs-code', null); render();
 }
+function onBadCode() { signOut(); setTimeout(() => codeDialog('הקישור הזה כבר לא פעיל. בקשו ממנהל הלוח קישור חדש.')); }
 
 async function load() {
   if (!S.code) return;
   const seq = ++S.loadSeq;
   const res = await rpc('fs_load', { p_code: S.code, p_from: ymd(S.month), p_to: ymd(lastOfMonth(S.month)) });
   if (seq !== S.loadSeq) return;
-  S.cfg = { ...DEFAULT_CFG, ...(res.config || {}) };
+  S.me = res.me;
+  S.cfg = { ...DEFAULT_CFG, ...(res.config || {}), consultants: res.consultants || [] };
   S.slots = new Map(res.slots.map(s => [s.id, s]));
   S.ready = true;
-  if (S.me?.role === 'consultant' && !cons(S.me.id)) saveMe(null);
   render();
 }
 function refresh() { return load().catch(e => { console.warn(e); if (e?.network) setBanner('אין חיבור לשרת. הנתונים יתעדכנו כשהחיבור יחזור.', 'warn'); }); }
+async function signIn(code) {
+  const me = await rpc('fs_login', { p_code: code });
+  S.code = code; S.me = me; store.set('fs-code', code);
+  S.filter.cons.clear();
+  await load();
+}
 
 async function addSlots(list) {
-  return rpc('fs_add_slots', { p_code: S.code, p_slots: list.map(s => ({ date: s.date, time: s.time, consultantId: s.consultantId, consultantName: consName(s.consultantId), location: s.location || '' })) });
+  return rpc('fs_add_slots', { p_code: S.code, p_slots: list.map(s => ({ date: s.date, time: s.time, consultantId: s.consultantId, location: s.location || '' })) });
 }
 async function markBooked(id, fields, isEdit) {
-  const res = await rpc('fs_book', { p_code: S.code, p_id: id, p_by: S.me?.name || '', p_name: fields.name || '', p_phone: fields.phone || '',
+  const res = await rpc('fs_book', { p_code: S.code, p_id: id, p_name: fields.name || '', p_phone: fields.phone || '',
     p_notes: fields.notes || '', p_location: fields.location ?? null, p_edit: !!isEdit });
-  if (!res.ok) throw { userMsg: res.reason === 'gone' ? 'היועצת הסירה את הסלוט הזה בינתיים.' : 'הסלוט כבר נתפס על ידי ' + (res.by || 'מישהו אחר') + '.' };
+  if (!res.ok) throw { userMsg: res.reason === 'gone' ? 'הסלוט הזה הוסר בינתיים.' : 'הסלוט כבר נתפס על ידי ' + (res.by || 'מישהו אחר') + '.' };
 }
 async function markOpen(id) { await rpc('fs_unbook', { p_code: S.code, p_id: id }); }
 
 async function quickBook(id) {
   const s = S.slots.get(id); if (!s) return;
-  S.busy.add(id); S.slots.set(id, { ...s, status: 'booked', bookedBy: S.me?.name || '', client: { name: '', phone: '', notes: '' } }); render();
+  S.busy.add(id); S.slots.set(id, { ...s, status: 'booked', bookedBy: S.me.name, client: { name: '', phone: '', notes: '' } }); render();
   try {
     await markBooked(id, {}, false);
-    toast('סומן כנתפס', [{ label: 'הוספת פרטים', fn: () => slotDialog(id) }, { label: 'ביטול', fn: () => markOpen(id).then(refresh).catch(e => toast(errMsg(e))) }]);
+    toast('סומן כנתפס על שמך', [{ label: 'הוספת פרטים', fn: () => slotDialog(id) }, { label: 'ביטול', fn: () => markOpen(id).then(refresh).catch(e => toast(errMsg(e))) }]);
   } catch (e) { S.slots.set(id, s); toast(errMsg(e)); }
   finally { S.busy.delete(id); await refresh(); }
 }
@@ -498,24 +573,24 @@ function setBanner(html, kind) {
 function render() {
   const weeks = monthWeeks();
   if (S.tab === null || (typeof S.tab === 'number' && S.tab >= weeks.length)) S.tab = defaultTab();
+  document.documentElement.classList.toggle('solo', isConsultant());
   renderWho(); renderMonthLbl(); renderTabs(weeks);
   if (!CONF.url || !CONF.key) setBanner('האתר עוד לא מחובר למסד הנתונים. צריך למלא את הקובץ config.js.', 'warn');
   else if (S.code) setBanner('');
   const sum = S.tab === 'sum';
   document.getElementById('weekView').hidden = sum;
   document.getElementById('monthView').hidden = !sum;
-  if (sum) renderMonth(weeks);
+  if (sum) renderDashboard(weeks);
   else { renderSummary(); renderToolbar(); renderFilters(); renderDayTabs(); renderGrid(); }
 }
 
 function renderWho() {
-  const el = document.getElementById('who');
-  if (!signedIn()) { el.innerHTML = ''; return; }
-  if (!S.me) { el.innerHTML = '<button class="btn" data-act="who">בחרו מי אתם</button>'; return; }
-  const consultant = isConsultant(), name = consultant ? consName(S.me.id) : S.me.name;
-  el.innerHTML = '<div class="who" style="--cc:' + (consultant ? consColor(S.me.id) : 'var(--gold)') + '">' + av(name, consultant ? '' : 'gold') + '<div class="nmw"><div>' +
-    esc(name) + '</div><div class="role">' + (consultant ? 'יועצת עסקית' : 'תיאום ומכירות') +
-    '</div></div><button class="btn ghost" data-act="who">החלפה</button></div>';
+  const el = document.getElementById('who'), sub = document.getElementById('brandSub');
+  const solo = isConsultant();
+  sub.textContent = solo ? 'הלוח האישי של ' + S.me.name : 'איציק עוז · יועצות עסקיות';
+  if (!S.me) { el.innerHTML = ''; return; }
+  el.innerHTML = '<div class="who" style="--cc:' + (solo ? consColor(S.me.id) : 'var(--gold)') + '">' + av(S.me.name, solo ? '' : 'gold') + '<div class="nmw"><div>' +
+    esc(S.me.name) + '</div><div class="role">' + ROLE_LABEL[S.me.role] + '</div></div><button class="btn ghost" data-act="logout" title="יציאה מהלוח בדפדפן הזה">יציאה</button></div>';
 }
 
 function renderMonthLbl() {
@@ -525,19 +600,19 @@ function renderMonthLbl() {
 
 /* פס דק בצבעי היועצות: כל יועצת מקבלת רוחב לפי מספר הסלוטים שלה */
 function mixBar(list) {
-  return '<span class="mix" aria-hidden="true">' + [...perConsultant(list)].filter(([, p]) => p.b + p.o)
-    .map(([id, p]) => '<i style="--cc:' + consColor(id) + ';flex:' + (p.b + p.o) + '"></i>').join('') + '</span>';
+  return '<span class="mix" aria-hidden="true">' + [...perConsultant(list)].filter(([, p]) => p.t)
+    .map(([id, p]) => '<i style="--cc:' + consColor(id) + ';flex:' + p.t + '"></i>').join('') + '</span>';
 }
 
 function renderTabs(weeks) {
   const t = todayYmd();
   const monthList = [...S.slots.values()].filter(inMonth);
   document.getElementById('tabs').innerHTML = weeks.map((w, i) => {
-    const a = w.dates[0], b = w.dates[w.dates.length - 1], list = weekSlotList(w), k = count(list);
+    const list = weekSlotList(w), k = count(list);
     const cur = ymd(w.start) <= t && t <= ymd(addDays(w.start, 6));
     return '<button class="tab' + (cur ? ' cur' : '') + '" role="tab" data-act="tab" data-tab="' + i + '" aria-selected="' + (S.tab === i) + '"><span class="tt"><b>שבוע ' + (i + 1) + '</b>' +
-      (k.t ? '<span class="pc">' + k.p + '%</span>' : '') + '</span><small>' + (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + (cur ? ' · השבוע' : '') + '</small>' + mixBar(list) + '</button>';
-  }).join('') + '<button class="tab sum" role="tab" data-act="tab" data-tab="sum" aria-selected="' + (S.tab === 'sum') + '"><span class="tt"><b>סיכום חודשי</b>' +
+      (k.t ? '<span class="pc">' + k.p + '%</span>' : '') + '</span><small>' + rangeLbl(w) + (cur ? ' · השבוע' : '') + '</small>' + mixBar(list) + '</button>';
+  }).join('') + '<button class="tab sum" role="tab" data-act="tab" data-tab="sum" aria-selected="' + (S.tab === 'sum') + '"><span class="tt"><b>דשבורד</b>' +
     (monthList.length ? '<span class="pc">' + count(monthList).p + '%</span>' : '') + '</span><small>' + MONTHS[S.month.getMonth()] + '</small>' + mixBar(monthList) + '</button>';
   // בנייד שורת הטאבים נגללת לצדדים: לוודא שהטאב הנבחר נראה, בלי להזיז את הדף למעלה או למטה
   const box = document.getElementById('tabs'), sel = box.querySelector('[aria-selected="true"]');
@@ -546,34 +621,38 @@ function renderTabs(weeks) {
 
 function weekSlotList(w) { const set = new Set(w.dates.map(ymd)); return [...S.slots.values()].filter(s => set.has(s.date)); }
 
-function perConsultant(list) {
-  const per = new Map(S.cfg.consultants.map(c => [c.id, { b: 0, o: 0, name: c.name }]));
-  for (const s of list) {
-    if (!per.has(s.consultantId)) per.set(s.consultantId, { b: 0, o: 0, name: s.consultantName });
-    const p = per.get(s.consultantId); s.status === 'booked' ? p.b++ : p.o++;
-  }
-  return per;
-}
 /* כרטיס צבעוני ליועצת. בתצוגת השבוע הכרטיס הוא גם כפתור סינון */
-function tileHTML(id, p, interactive) {
-  const t = p.b + p.o, name = consName(id, p.name), tag = interactive ? 'button' : 'div';
-  const attrs = interactive ? ' data-act="fcons" data-id="' + esc(id) + '" aria-pressed="' + S.filter.cons.has(id) + '" title="לחיצה מציגה בלוח רק את הסלוטים של ' + esc(name) + '"' : '';
-  return '<' + tag + ' class="ptile" style="--cc:' + consColor(id) + '"' + attrs + '>' + av(name) +
-    '<span class="pn"><b>' + esc(name) + '</b><small>' + (t ? p.o + ' פנויים · ' + p.b + ' נתפסו' : 'אין סלוטים') + '</small></span>' +
-    '<span class="pp">' + (t ? pct(p.b, t) + '<small>%</small>' : '') + '</span>' +
-    '<span class="pbar" title="' + p.b + ' נתפסו מתוך ' + t + '"><i style="width:' + pct(p.b, t) + '%"></i></span></' + tag + '>';
+function tileHTML(id, p) {
+  const name = consName(id, p.name);
+  return '<button class="ptile" style="--cc:' + consColor(id) + '" data-act="fcons" data-id="' + esc(id) + '" aria-pressed="' + S.filter.cons.has(id) + '" title="לחיצה מציגה בלוח רק את הסלוטים של ' + esc(name) + '">' + av(name) +
+    '<span class="pn"><b>' + esc(name) + '</b><small>' + (p.t ? p.b + ' נתפסו · ' + p.fut + ' פנויים' : 'אין סלוטים') + '</small></span>' +
+    '<span class="pp">' + (p.t ? p.p + '<small>%</small>' : '') + '</span>' +
+    '<span class="pbar" title="' + p.b + ' נתפסו מתוך ' + p.t + '"><i style="width:' + p.p + '%"></i></span></button>';
 }
-function statsHTML(list, interactive) {
-  const c = count(list), per = [...perConsultant(list)], tiles = per.map(([id, p]) => tileHTML(id, p, interactive)).join('');
-  const cols = per.length <= 4 ? per.length : Math.min(4, Math.ceil(per.length / 2));
-  return '<div class="ringcard"><div class="ring" style="--p:' + c.p + '"><div><b class="num">' + c.p + '<small>%</small></b><span>תפוסה</span></div></div>' +
-    '<dl class="stats"><div><dt>סלוטים</dt><dd class="num">' + c.t + '</dd></div><div><dt>פנויים</dt><dd class="num">' + c.o + '</dd></div><div><dt>נתפסו</dt><dd class="num g">' + c.b + '</dd></div></dl></div>' +
-    '<div class="people' + (interactive && S.filter.cons.size ? ' filtering' : '') + '" style="--cols:' + (cols || 1) + '">' + (tiles || '<div class="noone">' + (S.ready ? 'אין עדיין יועצות בלוח.' : 'טוען…') + '</div>') + '</div>';
+function stat(k, v, cls) { return '<div><dt>' + k + '</dt><dd class="num' + (cls ? ' ' + cls : '') + '">' + v + '</dd></div>'; }
+/* טבעת התפוסה וארבעת המספרים. row = פריסה לרוחב, עם שורת "על הפרק" */
+function ringHTML(c, row, focus) {
+  const ring = isConsultant() ? ' style="--ring:' + consColor(S.me.id) + '"' : '';
+  return '<div class="ringcard' + (row ? ' row' : '') + '"' + ring + '><div class="ring" style="--p:' + c.p + '"><div><b class="num">' + c.p + '<small>%</small></b><span>תפוסה</span></div></div>' +
+    '<dl class="stats">' + stat('נפתחו', c.t) + stat('נתפסו', c.b, 'g') + stat('פנויים קדימה', c.fut) + stat('לא נוצלו', c.gone, 'm') + '</dl>' +
+    (row && focus ? '<p class="focus">' + focus + '</p>' : '') + '</div>';
+}
+function focusLine(list) {
+  const c = count(list);
+  if (!c.t) return isConsultant() ? '<b>על הפרק:</b> עוד אין לך סלוטים בתקופה הזו. לוחצים על "+ פתיחת סלוט" במשבצת הרצויה.' : '';
+  if (!c.fut) return '<b>על הפרק:</b> אין סלוטים פנויים לשריון בתקופה הזו.';
+  if (isConsultant()) return '<b>על הפרק:</b> ' + c.fut + ' סלוטים שלך עדיין פנויים לשריון.';
+  const top = [...perConsultant(list)].filter(([, p]) => p.fut).sort((a, b) => b[1].fut - a[1].fut)[0];
+  return '<b>על הפרק:</b> ' + c.fut + ' סלוטים עדיין פנויים לשריון. הכי הרבה אצל ' + esc(consName(top[0], top[1].name)) + ' (' + top[1].fut + ').';
 }
 
 function renderSummary() {
   const w = curWeek(); if (!w) return;
-  document.getElementById('summary').innerHTML = statsHTML(weekSlotList(w), true);
+  const list = weekSlotList(w), el = document.getElementById('summary');
+  if (isConsultant()) { el.innerHTML = ringHTML(count(list), true, focusLine(list)); return; }
+  const per = [...perConsultant(list)], cols = per.length <= 4 ? per.length : Math.min(4, Math.ceil(per.length / 2));
+  el.innerHTML = ringHTML(count(list)) + '<div class="people' + (S.filter.cons.size ? ' filtering' : '') + '" style="--cols:' + (cols || 1) + '">' +
+    (per.map(([id, p]) => tileHTML(id, p)).join('') || '<div class="noone">' + (S.ready ? 'אין עדיין יועצות בלוח.' : 'טוען…') + '</div>') + '</div>';
 }
 
 function renderToolbar() {
@@ -585,12 +664,13 @@ function renderToolbar() {
     }
     parts.push('<button class="btn" data-act="copyPrev">העתקת הסלוטים שלי מהשבוע הקודם</button>');
     parts.push('<button class="btn danger" data-act="clearWeek">ניקוי הסלוטים הפנויים שלי</button>');
+    parts.push('<span class="hint">פותחים סלוט בלחיצה על "+ פתיחת סלוט", או על "כל היום" בראש העמודה.</span>');
   } else if (S.me) {
     parts.push('<button class="btn" data-act="copyPrev">העתקת כל הסלוטים מהשבוע הקודם</button>');
+    parts.push('<span class="hint">לחיצה על סלוט פנוי מסמנת אותו כנתפס על שמך. לחיצה על סלוט שנתפס פותחת את הפרטים.</span>');
   }
-  if (S.me) parts.push('<span class="hint">לחיצה על סלוט פנוי מסמנת אותו כנתפס. לחיצה על סלוט שנתפס פותחת את הפרטים.</span>');
   parts.push('<span class="sep"></span>');
-  if (signedIn()) parts.push('<button class="btn" data-act="settings">הגדרות</button>');
+  if (isAdmin()) parts.push('<button class="btn" data-act="settings">הגדרות וקישורים</button>');
   el.innerHTML = parts.join('');
 }
 
@@ -599,8 +679,8 @@ function renderFilters() {
   if (!S.cfg.consultants.length) { el.innerHTML = ''; return; }
   let h = '<button class="fchip" data-act="fopen" aria-pressed="' + S.filter.openOnly + '">רק פנויים</button>';
   if (S.cfg.locations.length) h += '<select id="fLoc" aria-label="סינון לפי מיקום"><option value="">כל המיקומים</option>' + S.cfg.locations.map(l => '<option' + (l === S.filter.loc ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select>';
-  h += S.filter.cons.size ? '<button class="fchip clear" data-act="fclear">הצגת כל היועצות ✕</button>' : '<span class="hint">לחיצה על כרטיס של יועצת מציגה רק את הסלוטים שלה</span>';
-  h += '<div class="legend"><span><i class="sw"></i>פנוי</span><span><i class="sw b"></i>נתפס</span>' + (isConsultant() ? '<span><i class="sw m"></i>הסלוטים שלך</span>' : '') + '</div>';
+  if (!isConsultant()) h += S.filter.cons.size ? '<button class="fchip clear" data-act="fclear">הצגת כל היועצות ✕</button>' : '<span class="hint">לחיצה על כרטיס של יועצת מציגה רק את הסלוטים שלה</span>';
+  h += '<div class="legend"><span><i class="sw"></i>פנוי</span><span><i class="sw b"></i>נתפס (מחוק בקו, עם שם מי ששריין)</span></div>';
   el.innerHTML = h;
 }
 
@@ -633,7 +713,7 @@ function renderGrid() {
   const el = document.getElementById('grid');
   if (S.ready && !S.cfg.consultants.length) {
     el.style.gridTemplateColumns = '1fr';
-    el.innerHTML = '<div class="empty-state"><h2>עוד אין יועצות בלוח</h2><p>מנהל הלוח מוסיף יועצות דרך "הגדרות".</p></div>';
+    el.innerHTML = '<div class="empty-state"><h2>עוד אין יועצות בלוח</h2><p>מנהל הלוח מוסיף יועצות דרך "הגדרות וקישורים".</p></div>';
     return;
   }
   const w = curWeek(); if (!w) return;
@@ -659,11 +739,11 @@ function renderGrid() {
         const booked = s.status === 'booked';
         const name = consName(s.consultantId, s.consultantName);
         const sub = booked ? (s.client?.name || '') : (s.location || '');
-        const label = name + ' · ' + tm + ' · ' + (booked ? 'נתפס' + (sub ? ' – ' + sub : '') : 'פנוי, לחצו לסימון כנתפס');
-        inner += '<div class="cw"><button class="chip' + (booked ? ' booked' : '') + (s.consultantId === me ? ' mine' : '') + (past && !booked ? ' dim' : '') + (S.busy.has(id) ? ' busy' : '') +
+        const label = name + ' · ' + tm + ' · ' + (booked ? 'נתפס' + (s.bookedBy ? ' על ידי ' + s.bookedBy : '') + (sub ? ' · לקוח: ' + sub : '') : me ? 'פנוי' : 'פנוי, לחצו לסימון כנתפס');
+        inner += '<div class="cw"><button class="chip' + (booked ? ' booked' : '') + (past && !booked ? ' dim' : '') + (S.busy.has(id) ? ' busy' : '') +
           '" data-act="slot" data-id="' + esc(id) + '" style="--cc:' + consColor(s.consultantId) + '" title="' + esc(label) + '" aria-label="' + esc(label) + '"><span class="ck">' + (booked ? '✓' : '') + '</span><span class="nm">' +
-          esc(name) + '</span>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') + '</button>' +
-          (s.consultantId === me && !booked ? '<button class="x" data-act="remove" data-id="' + esc(id) + '" title="הסרת הסלוט" aria-label="הסרת הסלוט">×</button>' : '') + '</div>';
+          esc(name) + '</span>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '<span class="sub"></span>') + (booked && s.bookedBy ? '<span class="by">' + esc(s.bookedBy) + '</span>' : '') + '</button>' +
+          (s.consultantId === me && !booked && !past ? '<button class="x" data-act="remove" data-id="' + esc(id) + '" title="הסרת הסלוט" aria-label="הסרת הסלוט">×</button>' : '') + '</div>';
       }
       if (me && !past && !hasMine) inner += '<button class="add" data-act="add" data-date="' + ds + '" data-time="' + tm + '">+ פתיחת סלוט</button>';
       h += '<div class="cell' + (past ? ' past' : '') + (ds === t ? ' todaycol' : '') + hl + '">' + inner + '</div>';
@@ -672,25 +752,47 @@ function renderGrid() {
   el.innerHTML = h;
 }
 
-function renderMonth(weeks) {
-  const all = [...S.slots.values()].filter(inMonth), c = count(all);
-  const wrow = weeks.map((w, i) => {
-    const list = weekSlotList(w), k = count(list), a = w.dates[0], b = w.dates[w.dates.length - 1];
-    return '<tr class="link" data-act="tab" data-tab="' + i + '" tabindex="0"><td><b>שבוע ' + (i + 1) + '</b> <span class="cnt">' + (a === b ? ddmm(a) : ddmm(a) + '–' + ddmm(b)) + '</span></td><td class="mixcell">' + mixBar(list) +
-      '</td><td class="n">' + k.t + '</td><td class="n">' + k.o + '</td><td class="n">' + k.b + '</td><td class="n pct">' + k.p + '%</td></tr>';
-  }).join('');
-  document.getElementById('monthView').innerHTML =
-    '<section class="summary" aria-label="סיכום החודש">' + statsHTML(all, false) + '</section>' +
-    '<div class="panel"><h2>לפי שבוע</h2><div class="tblwrap"><table class="tbl"><thead><tr><th>שבוע</th><th>חלוקה בין היועצות</th><th class="n">סלוטים</th><th class="n">פנויים</th><th class="n">נתפסו</th><th class="n">תפוסה</th></tr></thead><tbody>' + wrow +
-      '</tbody><tfoot><tr><td>סה״כ</td><td>' + mixBar(all) + '</td><td class="n">' + c.t + '</td><td class="n">' + c.o + '</td><td class="n">' + c.b + '</td><td class="n">' + c.p + '%</td></tr></tfoot></table></div></div>';
+/* פס מצב ליועצת: נתפסו (צבע מלא), פנויים קדימה (צבע בהיר), לא נוצלו (פסים אפורים) */
+function stackBar(p) {
+  return '<span class="sbar" title="' + p.b + ' נתפסו · ' + p.fut + ' פנויים קדימה · ' + p.gone + ' לא נוצלו">' +
+    (p.b ? '<i class="b" style="flex:' + p.b + '"></i>' : '') + (p.fut ? '<i class="f" style="flex:' + p.fut + '"></i>' : '') + (p.gone ? '<i class="g" style="flex:' + p.gone + '"></i>' : '') + '</span>';
+}
+
+function renderDashboard(weeks) {
+  const all = [...S.slots.values()].filter(inMonth), c = count(all), solo = isConsultant();
+  const nums = k => '<td class="n">' + k.t + '</td><td class="n">' + k.b + '</td><td class="n">' + k.fut + '</td><td class="n">' + k.gone + '</td><td class="n pct">' + k.p + '%</td>';
+  const head = (first, extra) => '<thead><tr><th>' + first + '</th>' + (extra || '') + '<th class="n">נפתחו</th><th class="n">נתפסו</th><th class="n">פנויים קדימה</th><th class="n">לא נוצלו</th><th class="n">תפוסה</th>';
+  const legend = '<span class="slegend"><span><i style="background:var(--ink)"></i>נתפסו</span><span><i style="background:color-mix(in oklab,var(--ink) 30%,var(--surface))"></i>פנויים קדימה</span><span><i class="g"></i>לא נוצלו</span></span>';
+
+  const crow = [...perConsultant(all)].map(([id, p]) => { const n = consName(id, p.name);
+    return '<tr style="--cc:' + consColor(id) + '"><td><span class="pname">' + av(n) + esc(n) + '</span></td>' + nums(p) + '<td class="barcell">' + stackBar(p) + '</td></tr>'; }).join('');
+  const wrow = weeks.map((w, i) => { const list = weekSlotList(w);
+    return '<tr class="link" data-act="tab" data-tab="' + i + '" tabindex="0"><td><b>שבוע ' + (i + 1) + '</b> <span class="cnt">' + rangeLbl(w) + '</span></td>' +
+      (solo ? '' : '<td class="mixcell">' + mixBar(list) + '</td>') + nums(count(list)) + '</tr>'; }).join('');
+
+  const bk = new Map();
+  for (const s of all) if (s.status === 'booked') { const k = s.bookedBy || 'לא ידוע'; bk.set(k, (bk.get(k) || 0) + 1); }
+  const bmax = Math.max(1, ...bk.values());
+  const brow = [...bk].sort((a, b) => b[1] - a[1]).map(([n, v]) => '<tr><td><span class="pname">' + av(n, 'gold') + esc(n) + '</span></td><td class="n">' + v + '</td><td class="n pct">' + pct(v, c.b) + '%</td><td class="barcell"><span class="gbar"><i style="width:' + (v / bmax * 100) + '%"></i></span></td></tr>').join('');
+
+  document.getElementById('monthView').innerHTML = '<div class="dash' + (solo ? ' solo-dash' : '') + '">' +
+    '<section class="summary" aria-label="סיכום החודש">' + ringHTML(c, true, focusLine(all)) + '</section>' +
+    (solo ? '' : '<div class="panel"><div class="ph"><h2>לפי יועצת</h2>' + legend + '</div><div class="tblwrap"><table class="tbl">' + head('יועצת') + '<th></th></tr></thead><tbody>' +
+      (crow || '<tr><td colspan="7">אין עדיין יועצות בלוח.</td></tr>') + '</tbody><tfoot><tr><td>סה״כ</td>' + nums(c) + '<td></td></tr></tfoot></table></div></div>') +
+    '<div class="dgrid"><div class="panel"><div class="ph"><h2>לפי שבוע</h2><span class="hint">לחיצה על שבוע פותחת אותו</span></div><div class="tblwrap"><table class="tbl">' + head('שבוע', solo ? '' : '<th>חלוקה בין היועצות</th>') + '</tr></thead><tbody>' + wrow +
+      '</tbody><tfoot><tr><td>סה״כ</td>' + (solo ? '' : '<td>' + mixBar(all) + '</td>') + nums(c) + '</tr></tfoot></table></div></div>' +
+    (solo ? '' : '<div class="panel"><div class="ph"><h2>מי שריין</h2><span class="hint">סלוטים שסומנו כנתפסו החודש</span></div>' +
+      (brow ? '<div class="tblwrap"><table class="tbl"><thead><tr><th>שם</th><th class="n">שריונים</th><th class="n">מהשריונים</th><th></th></tr></thead><tbody>' + brow + '</tbody></table></div>' : '<p class="empty">עוד לא נתפסו סלוטים החודש.</p>') + '</div>') +
+    '</div></div>';
 }
 
 /* ---------- חלונות ---------- */
 const dlg = document.getElementById('dlg');
 const dlgBody = document.getElementById('dlgBody');
 let dlgSubmit = null, dlgLocked = false;
-function openDlg(html, onSubmit, locked) {
+function openDlg(html, onSubmit, locked, wide) {
   dlgBody.innerHTML = html; dlgSubmit = onSubmit; dlgLocked = !!locked;
+  dlg.classList.toggle('wide', !!wide);
   if (!dlg.open) dlg.showModal();
   const f = dlgBody.querySelector('input:not([type=checkbox]),select,textarea'); if (f) f.focus();
 }
@@ -709,65 +811,46 @@ dlgBody.addEventListener('submit', async e => {
   } finally { btns.forEach(b => (b.disabled = false)); }
 });
 
-function codeDialog() {
+function codeDialog(msg) {
   openDlg('<div class="gate"><div class="logo" aria-hidden="true"><span>OZ</span></div><h3>לוח סלוטי מיקוד</h3></div>' +
-    '<p class="note">הקלידו את קוד הכניסה שקיבלתם. הקוד נשמר בדפדפן הזה, כך שצריך להקליד אותו רק פעם אחת.</p>' +
-    '<label for="accessCode">קוד כניסה<input type="password" id="accessCode" name="code" autocomplete="current-password" dir="ltr" required></label>' +
+    '<p class="note">' + esc(msg || 'נכנסים ללוח דרך הקישור האישי שקיבלתם. אחרי כניסה אחת הדפדפן זוכר אתכם.') + '</p>' +
+    '<label for="accessCode">יש לכם קוד כניסה? הקלידו אותו כאן<input type="password" id="accessCode" name="code" autocomplete="current-password" dir="ltr" required></label>' +
     '<div class="acts"><button class="btn primary" type="submit" value="ok">כניסה</button></div>',
     async (a, fd) => {
       const code = String(fd.get('code') || '').trim().toLowerCase();
-      if (!code) throw { userMsg: 'הקלידו את קוד הכניסה.' };
-      await signIn(code);
-      if (!S.me && S.cfg.consultants.length) { setTimeout(whoDialog); }
+      if (!code) throw { userMsg: 'הקלידו את הקוד.' };
+      await signIn(code).catch(e => { if (e?.message === 'bad_code') throw { userMsg: 'הקוד לא נכון.' }; throw e; });
     }, true);
-}
-async function signIn(code) {
-  const res = await rpc('fs_login', { p_code: code });
-  S.code = code; S.role = res.role; store.set('fs-code', code);
-  await load();
-}
-
-function whoDialog() {
-  const cs = S.cfg.consultants;
-  openDlg('<h3>מי נכנס/ת ללוח?</h3><p class="note">הבחירה נשמרת בדפדפן הזה. אפשר להחליף בכל רגע.</p>' +
-    (cs.length ? '<p class="sec">יועצות עסקיות</p><div class="pick">' + cs.map(c => '<button type="submit" value="c:' + c.id + '" style="--cc:var(--c' + (c.color % PALETTE) + ')">' + av(c.name) + esc(c.name) + '</button>').join('') + '</div><div class="divider">או</div>' : '') +
-    '<p class="sec">צוות מכירות ותיאום</p><label for="coName">השם שלך (יופיע ליד כל סלוט שתסמנו כנתפס)<input type="text" id="coName" name="coName" value="' + esc(S.me?.role === 'coordinator' ? S.me.name : '') + '" autocomplete="name"></label>' +
-    '<div class="acts"><button class="btn primary" type="submit" value="co">כניסה כצוות תיאום</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">סגירה</button></div>',
-    async (action, fd) => {
-      if (action.startsWith('c:')) { const id = action.slice(2); saveMe({ role: 'consultant', id, name: consName(id) }); }
-      else {
-        const name = String(fd.get('coName') || '').trim();
-        if (!name) throw { userMsg: 'כתבו את השם שלכם כדי שיופיע ליד הסלוטים שתסמנו.' };
-        saveMe({ role: 'coordinator', name });
-      }
-      S.filter.cons.clear(); render();
-    });
 }
 
 function slotDialog(id) {
   const s = S.slots.get(id); if (!s) return;
   const d = parseYmd(s.date);
   const name = consName(s.consultantId, s.consultantName);
-  const booked = s.status === 'booked';
+  const booked = s.status === 'booked', solo = isConsultant(), past = isPast(s.date, s.time);
   const c = s.client || {};
-  const head = '<div class="band' + (booked ? ' booked' : '') + '" style="--cc:' + consColor(s.consultantId) + '"><span class="st">' + (booked ? '✓ נתפס' : 'פנוי') + '</span><h3>' + esc(name) + ' · ' + s.time +
+  const when = s.bookedAt ? new Date(s.bookedAt).toLocaleString('he-IL', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+  const head = '<div class="band' + (booked ? ' booked' : '') + '" style="--cc:' + consColor(s.consultantId) + '"><span class="st">' + (booked ? '✓ נתפס' + (s.bookedBy ? ' על ידי ' + esc(s.bookedBy) : '') : 'פנוי') + '</span><h3>' + esc(name) + ' · ' + s.time +
     '</h3><p class="meta">יום ' + DAY_NAMES[d.getDay()] + ' ' + ddmm(d) + '.' + d.getFullYear() + (s.location ? ' · ' + esc(s.location) : '') + '</p></div>';
   const locSel = S.cfg.locations.length ? '<label for="fLocSel">מיקום<select id="fLocSel" name="location"><option value="">ללא</option>' +
     [...new Set([...S.cfg.locations, s.location].filter(Boolean))].map(l => '<option' + (l === s.location ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select></label>' : '';
-  openDlg(head + (booked ? '<p class="note">סומן כנתפס על ידי ' + esc(s.bookedBy || '—') + (s.bookedAt ? ' ב-' + new Date(s.bookedAt).toLocaleDateString('he-IL') : '') + '. פרטי הלקוח לא חובה.</p>' : '') +
+  const note = booked ? '<p class="note">שוריין על ידי <b>' + esc(s.bookedBy || 'לא ידוע') + '</b>' + (when ? ' ב־' + when : '') + '. פרטי הלקוח לא חובה.</p>'
+    : '<p class="note">' + (solo ? 'הסלוט פנוי וצוות המכירות יכול לשריין אותו. אם שריינת לקוח בעצמך, אפשר לסמן כאן.' : 'פרטי הלקוח לא חובה. אפשר להוסיף אותם גם אחר כך.') + '</p>';
+  openDlg(head + note +
     '<label for="fName">שם הלקוח<input type="text" id="fName" name="name" value="' + esc(c.name) + '"></label>' +
     '<div class="row2"><label for="fPhone">טלפון<input type="tel" id="fPhone" name="phone" value="' + esc(c.phone) + '" dir="ltr"></label>' + (locSel || '<span></span>') + '</div>' +
     '<label for="fNotes">הערות<textarea id="fNotes" name="notes">' + esc(c.notes) + '</textarea></label>' +
     '<div class="acts">' + (booked ? '<button class="btn primary" type="submit" value="save">שמירה</button><button class="btn danger" type="submit" value="unbook">החזרה לפנוי</button>'
-      : '<button class="btn primary" type="submit" value="book">סימון כנתפס</button>') +
+      : '<button class="btn primary" type="submit" value="book">סימון כנתפס</button>' + (solo && !past ? '<button class="btn danger" type="submit" value="remove">הסרת הסלוט</button>' : '')) +
     '<span class="sp"></span><button class="btn ghost" type="submit" value="cancel">סגירה</button></div>',
     async (action, fd) => {
       if (action === 'unbook') { await markOpen(id); await refresh(); toast('הסלוט חזר להיות פנוי'); return; }
+      if (action === 'remove') { await rpc('fs_remove_slots', { p_code: S.code, p_ids: [id] }); await refresh(); toast('הסלוט הוסר'); return; }
       const fields = { name: String(fd.get('name') || '').trim(), phone: String(fd.get('phone') || '').trim(), notes: String(fd.get('notes') || '').trim(),
         location: fd.has('location') ? String(fd.get('location')) : undefined };
       await markBooked(id, fields, action === 'save');
       await refresh();
-      toast(action === 'save' ? 'הפרטים נשמרו' : 'סומן כנתפס');
+      toast(action === 'save' ? 'הפרטים נשמרו' : 'סומן כנתפס על שמך');
     });
 }
 
@@ -775,54 +858,80 @@ function confirmDialog(title, text, okLabel, fn) {
   openDlg('<h3>' + title + '</h3><p class="note">' + text + '</p><div class="acts"><button class="btn danger" type="submit" value="ok">' + okLabel + '</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">ביטול</button></div>', fn);
 }
 
-function adminGate() {
-  openDlg('<h3>הגדרות הלוח</h3><p class="note">ההגדרות פתוחות רק למנהל הלוח. הקלידו את קוד המנהל.</p>' +
-    '<label for="adminCode">קוד מנהל<input type="password" id="adminCode" name="code" dir="ltr" autocomplete="off"></label>' +
-    '<div class="acts"><button class="btn primary" type="submit" value="ok">המשך</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">ביטול</button></div>',
-    async (a, fd) => {
-      const code = String(fd.get('code') || '').trim().toLowerCase();
-      const res = await rpc('fs_login', { p_code: code }).catch(e => { if (e.message === 'bad_code') throw { userMsg: 'קוד המנהל לא נכון.' }; throw e; });
-      if (res.role !== 'admin') throw { userMsg: 'זה קוד הצוות. להגדרות צריך את קוד המנהל.' };
-      S.code = code; S.role = 'admin'; store.set('fs-code', code);
-      setTimeout(settingsDialog); return true;
-    });
-}
-
-function settingsDialog() {
-  if (S.role !== 'admin') return adminGate();
-  const draft = JSON.parse(JSON.stringify(S.cfg));
+/* הגדרות: אנשים וקישורים אישיים, מיקומים ושעות. רק למנהל הלוח */
+async function settingsDialog() {
+  if (!isAdmin()) return;
+  const people = await rpc('fs_people_admin', { p_code: S.code });
+  const draft = { people, locations: [...S.cfg.locations], start: S.cfg.start, end: S.cfg.end, days: [...S.cfg.days], confirm: null };
   const opts = (sel, from, to) => { let o = ''; for (let m = toMin(from); m <= toMin(to); m += 30) { const t = fromMin(m); o += '<option' + (t === sel ? ' selected' : '') + '>' + t + '</option>'; } return o; };
+  const waText = p => (p.role === 'consultant'
+    ? 'היי ' + p.name.split(' ')[0] + ', זה הקישור האישי שלך ללוח סלוטי המיקוד. דרכו פותחים ומעדכנים את הסלוטים שלך. כדאי לשמור אותו במועדפים: '
+    : 'היי ' + p.name.split(' ')[0] + ', זה הקישור האישי שלך ללוח סלוטי המיקוד. כל סלוט שתסמנו כנתפס יירשם על שמך. כדאי לשמור אותו במועדפים: ') + boardLink(p.token);
+  // שמות שנערכו בטופס נשמרים בטיוטה לפני כל פעולה
+  const readNames = fd => draft.people.forEach((p, i) => { const v = String(fd.get('pn' + i) || '').trim(); if (v) p.name = v; });
+  const savePeople = async () => {
+    draft.people = await rpc('fs_save_people', { p_code: S.code, p_people: draft.people.map((p, i) => ({ id: p.id || '', role: p.role, name: p.name, color: p.color || 0, sort: i })) });
+  };
+  const row = (p, i) => {
+    const isC = p.role === 'consultant', conf = draft.confirm;
+    return '<div class="prow" style="--cc:' + (isC ? colorVar(p.color) : 'var(--gold)') + '">' +
+      (isC ? '<button class="dot" type="submit" value="color:' + i + '" title="החלפת צבע" aria-label="החלפת הצבע של ' + esc(p.name) + '"></button>' : av(p.name, 'gold')) +
+      '<input type="text" id="pn' + i + '" name="pn' + i + '" value="' + esc(p.name) + '" aria-label="שם">' +
+      '<button class="btn sm" type="submit" value="copy:' + i + '">העתקת קישור</button>' +
+      '<a class="btn sm" href="https://wa.me/?text=' + encodeURIComponent(waText(p)) + '" target="_blank" rel="noopener">וואטסאפ</a>' +
+      (conf === 'reset:' + i ? '<button class="btn sm danger" type="submit" value="reset:' + i + '">לאשר קישור חדש</button>' : '<button class="btn sm ghost" type="submit" value="reset:' + i + '" title="הקישור הנוכחי יפסיק לעבוד">קישור חדש</button>') +
+      (conf === 'del:' + i ? '<button class="btn sm danger" type="submit" value="del:' + i + '">לאשר הסרה</button>' : '<button class="btn sm ghost" type="submit" value="del:' + i + '">הסרה</button>') + '</div>';
+  };
+  const group = (role, title, note, ph, addVal) => '<p class="sec">' + title + '</p><p class="note">' + note + '</p><div class="plist">' +
+    draft.people.map((p, i) => p.role === role ? row(p, i) : '').join('') + '</div>' +
+    '<div class="addrow"><input type="text" id="new-' + role + '" name="new-' + role + '" placeholder="' + ph + '"><button class="btn" type="submit" value="' + addVal + '">הוספה</button></div>';
   const paint = () => {
-    openDlg('<h3>הגדרות הלוח</h3>' +
-      '<p class="sec">יועצות עסקיות</p><div class="list">' + draft.consultants.map((c, i) =>
-        '<div class="li" style="--cc:var(--c' + (c.color % PALETTE) + ')"><i></i><input type="text" id="cn' + i + '" name="cn' + i + '" value="' + esc(c.name) + '" aria-label="שם יועצת"><button class="btn ghost" type="submit" value="delc:' + i + '" aria-label="הסרת ' + esc(c.name) + '">הסרה</button></div>').join('') +
-      '</div><div class="addrow"><input type="text" id="newCons" name="newCons" placeholder="שם יועצת חדשה"><button class="btn" type="submit" value="addc">הוספה</button></div>' +
-      '<p class="sec">מיקומים</p><p class="note">למשל: משרד, זום, אצל הלקוח. כשיש מיקומים, היועצות בוחרות מיקום לכל סלוט.</p><div class="list">' + draft.locations.map((l, i) =>
+    openDlg('<h3>הגדרות וקישורים</h3>' +
+      '<div class="mylink"><span class="hint">הקישור שלך כמנהל הלוח. אל תעבירו אותו הלאה.</span><button class="btn sm" type="submit" value="copyme">העתקה</button></div>' +
+      group('consultant', 'יועצות עסקיות', 'כל יועצת נכנסת בקישור שלה ורואה ומעדכנת רק את הסלוטים שלה. לחיצה על העיגול מחליפה צבע.', 'שם יועצת חדשה', 'add:consultant') +
+      group('team', 'צוות מכירות ומשרד', 'רואים את כל היועצות ומסמנים סלוטים כנתפסו. השם שלהם נרשם על כל שריון.', 'שם איש צוות חדש', 'add:team') +
+      '<p class="sec">מיקומים</p><p class="note">למשל: משרד, זום. כשיש מיקומים, היועצות בוחרות מיקום לכל סלוט.</p><div class="list">' + draft.locations.map((l, i) =>
         '<div class="li"><input type="text" id="ln' + i + '" name="ln' + i + '" value="' + esc(l) + '" aria-label="מיקום"><button class="btn ghost" type="submit" value="dell:' + i + '">הסרה</button></div>').join('') +
       '</div><div class="addrow"><input type="text" id="newLocName" name="newLoc" placeholder="מיקום חדש"><button class="btn" type="submit" value="addl">הוספה</button></div>' +
       '<p class="sec">שעות הלוח</p><div class="row2"><label for="cfgStart">סלוט ראשון<select id="cfgStart" name="start">' + opts(draft.start, '06:00', '14:00') + '</select></label><label for="cfgEnd">סלוט אחרון<select id="cfgEnd" name="end">' + opts(draft.end, '10:00', '22:00') + '</select></label></div>' +
       '<label class="field" for="cfgFri" style="flex-direction:row"><input type="checkbox" id="cfgFri" name="fri"' + (draft.days.includes(5) ? ' checked' : '') + '> כולל יום שישי</label>' +
-      '<div class="acts"><button class="btn primary" type="submit" value="save">שמירה</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">ביטול</button></div>',
+      '<div class="acts"><button class="btn primary" type="submit" value="save">שמירה</button><span class="sp"></span><button class="btn ghost" type="submit" value="cancel">סגירה</button></div>',
       async (action, fd) => {
-        draft.consultants.forEach((c, i) => { const v = String(fd.get('cn' + i) || '').trim(); if (v) c.name = v; });
+        readNames(fd);
         draft.locations = draft.locations.map((l, i) => String(fd.get('ln' + i) || '').trim()).filter(Boolean);
         draft.start = String(fd.get('start')); draft.end = String(fd.get('end'));
         draft.days = fd.get('fri') ? [0, 1, 2, 3, 4, 5] : [0, 1, 2, 3, 4];
-        if (action === 'addc') {
-          const n = String(fd.get('newCons') || '').trim(); if (!n) return true;
-          const used = new Set(draft.consultants.map(c => c.color % PALETTE));
+        const [verb, arg] = action.split(':'), i = +arg, p = draft.people[i];
+        if (verb !== 'reset' && verb !== 'del') draft.confirm = null;
+        if (verb === 'copyme' || verb === 'copy') {
+          const link = verb === 'copyme' ? boardLink(S.code) : boardLink(p.token);
+          try { await navigator.clipboard.writeText(link); toast(verb === 'copyme' ? 'הקישור שלך הועתק' : 'הקישור של ' + p.name + ' הועתק'); }
+          catch { window.prompt('העתיקו את הקישור:', link); }
+          return true;
+        }
+        if (verb === 'add') {
+          const n = String(fd.get('new-' + arg) || '').trim(); if (!n) return true;
+          const used = new Set(draft.people.filter(x => x.role === 'consultant').map(x => x.color % PALETTE));
           let color = 0; while (used.has(color) && color < PALETTE) color++;
-          draft.consultants.push({ id: newId(), name: n, color: color % PALETTE });
-          paint(); setTimeout(() => document.getElementById('newCons')?.focus()); return true;
+          draft.people.push({ role: arg, name: n, color: color % PALETTE });
+          await savePeople(); paint(); setTimeout(() => document.getElementById('new-' + arg)?.focus()); return true;
+        }
+        if (verb === 'color') { p.color = ((p.color || 0) + 1) % PALETTE; await savePeople(); paint(); return true; }
+        if (verb === 'reset' || verb === 'del') {
+          if (draft.confirm !== action) { draft.confirm = action; paint(); return true; }
+          draft.confirm = null;
+          if (verb === 'reset') { await savePeople(); draft.people = await rpc('fs_reset_token', { p_code: S.code, p_id: p.id }); toast('נוצר קישור חדש ל' + p.name + '. הקישור הקודם כבר לא עובד.'); }
+          else { draft.people.splice(i, 1); await savePeople(); toast(p.name + ' הוסר/ה. הקישור שלו/ה כבר לא עובד, והסלוטים שכבר נפתחו נשארים.'); }
+          paint(); return true;
         }
         if (action === 'addl') { const n = String(fd.get('newLoc') || '').trim(); if (n && !draft.locations.includes(n)) draft.locations.push(n); paint(); setTimeout(() => document.getElementById('newLocName')?.focus()); return true; }
-        if (action.startsWith('delc:')) { draft.consultants.splice(+action.slice(5), 1); paint(); return true; }
-        if (action.startsWith('dell:')) { draft.locations.splice(+action.slice(5), 1); paint(); return true; }
+        if (verb === 'dell') { draft.locations.splice(i, 1); paint(); return true; }
         if (toMin(draft.end) <= toMin(draft.start)) throw { userMsg: 'הסלוט האחרון צריך להיות אחרי הסלוט הראשון.' };
-        await rpc('fs_save_config', { p_code: S.code, p_config: draft });
+        await savePeople();
+        await rpc('fs_save_config', { p_code: S.code, p_config: { locations: draft.locations, start: draft.start, end: draft.end, step: S.cfg.step || 30, days: draft.days } });
         await refresh();
         toast('ההגדרות נשמרו');
-      });
+      }, false, true);
   };
   paint();
 }
@@ -868,24 +977,23 @@ document.getElementById('app').addEventListener('click', async e => {
   const b = e.target.closest('[data-act]'); if (!b) return;
   const act = b.dataset.act;
   try {
-    if (act === 'who') return whoDialog();
-    if (act === 'settings') return settingsDialog();
     if (act === 'tab') { S.tab = b.dataset.tab === 'sum' ? 'sum' : +b.dataset.tab; return render(); }
     if (act === 'day') { S.day = +b.dataset.day; return render(); }
     if (act === 'fcons') { const id = b.dataset.id; S.filter.cons.has(id) ? S.filter.cons.delete(id) : S.filter.cons.add(id); return render(); }
     if (act === 'fopen') { S.filter.openOnly = !S.filter.openOnly; return render(); }
     if (act === 'fclear') { S.filter.cons.clear(); return render(); }
     if (!signedIn()) return codeDialog();
+    if (act === 'logout') return confirmDialog('לצאת מהלוח?', 'כדי לחזור תצטרכו שוב את הקישור האישי.', 'יציאה', async () => { signOut(); setTimeout(() => codeDialog()); });
+    if (act === 'settings') return await settingsDialog();
     if (act === 'slot') {
       const s = S.slots.get(b.dataset.id); if (!s) return;
-      if (s.status === 'booked') return slotDialog(b.dataset.id);
-      if (!S.me) return whoDialog();
+      if (s.status === 'booked' || isConsultant()) return slotDialog(b.dataset.id);
       return await quickBook(b.dataset.id);
     }
     if (act === 'add') {
       b.disabled = true;
       const s = { date: b.dataset.date, time: b.dataset.time, consultantId: S.me.id, location: S.newLoc };
-      S.slots.set(slotId(s.date, s.time, s.consultantId), { ...s, id: slotId(s.date, s.time, s.consultantId), status: 'open', consultantName: consName(s.consultantId) }); render();
+      S.slots.set(slotId(s.date, s.time, s.consultantId), { ...s, id: slotId(s.date, s.time, s.consultantId), status: 'open', consultantName: S.me.name }); render();
       await addSlots([s]); await refresh(); return;
     }
     if (act === 'remove') {
@@ -922,18 +1030,24 @@ matchMedia('(max-width:720px)').addEventListener('change', () => render());
 })();
 
 /* ---------- הפעלה ---------- */
-setInterval(() => { if (S.role && document.visibilityState === 'visible') refresh(); }, POLL_MS);
-document.addEventListener('visibilitychange', () => { if (S.role && document.visibilityState === 'visible') refresh(); });
+function tick() {
+  if (document.visibilityState !== 'visible' || !S.code) return;
+  if (S.me) refresh();
+  else signIn(S.code).catch(e => { if (e?.message === 'bad_code') { S.code = null; store.set('fs-code', null); codeDialog('הקישור הזה לא פעיל. בקשו ממנהל הלוח קישור חדש.'); } });
+}
+setInterval(tick, POLL_MS);
+document.addEventListener('visibilitychange', tick);
 render();
 (async () => {
   if (!CONF.url || !CONF.key) return;
   const m = location.hash.match(/^#k=([\w-]+)$/);
-  if (m) { S.code = m[1].toLowerCase(); history.replaceState(null, '', location.pathname); }
+  if (m) { S.code = m[1].toLowerCase(); history.replaceState(null, '', location.pathname + location.search); }
   if (!S.code) return codeDialog();
-  try {
-    await signIn(S.code);
-    if (!S.me && S.cfg.consultants.length) whoDialog();
-  } catch (e) { if (e?.message !== 'bad_code') { setBanner(errMsg(e), 'warn'); } }
+  try { await signIn(S.code); }
+  catch (e) {
+    if (e?.message === 'bad_code') { S.code = null; store.set('fs-code', null); codeDialog('הקישור הזה לא פעיל. בקשו ממנהל הלוח קישור חדש.'); }
+    else setBanner(errMsg(e), 'warn');
+  }
 })();
 </script>
 </body>
