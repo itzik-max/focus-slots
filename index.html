@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>לוח סלוטי מיקוד</title>
+<title>מערכת סלוטים – פגישות מיקוד</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0a08'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%23d4a94f' stroke-width='3'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Heebo,Arial,sans-serif' font-weight='700' font-size='18' fill='%23d4a94f'%3EOZ%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -339,6 +339,8 @@ a.btn{color:inherit;text-decoration:none}
   #app{padding-top:10px;gap:12px}
   .top{padding:14px;border-radius:16px}
   .brand h1{font-size:21px}
+  .brand h1 em{display:block;font-size:17px;margin-top:2px}
+  .brand h1 .tsep{display:none}
   .logo{width:42px;height:42px}
   .monthnav{margin-inline-start:0;width:100%;justify-content:space-between}
   .tab{flex:0 0 auto;min-width:118px}
@@ -361,7 +363,7 @@ a.btn{color:inherit;text-decoration:none}
   <header class="top">
     <div class="brand">
       <div class="logo" aria-hidden="true"><span>OZ</span></div>
-      <div><h1>לוח סלוטי <em>מיקוד</em></h1><small id="brandSub">איציק עוז · יועצות עסקיות</small></div>
+      <div><h1>מערכת סלוטים <em><span class="tsep">– </span>פגישות מיקוד</em></h1><small id="brandSub">איציק עוז · יועצות עסקיות</small></div>
     </div>
     <div id="who"></div>
     <nav class="monthnav" aria-label="מעבר בין חודשים">
@@ -814,7 +816,7 @@ dlgBody.addEventListener('submit', async e => {
 });
 
 function codeDialog(msg) {
-  openDlg('<div class="gate"><div class="logo" aria-hidden="true"><span>OZ</span></div><h3>לוח סלוטי מיקוד</h3></div>' +
+  openDlg('<div class="gate"><div class="logo" aria-hidden="true"><span>OZ</span></div><h3>מערכת סלוטים – פגישות מיקוד</h3></div>' +
     '<p class="note">' + esc(msg || 'נכנסים ללוח דרך הקישור האישי שקיבלתם. אחרי כניסה אחת הדפדפן זוכר אתכם.') + '</p>' +
     '<label for="accessCode">יש לכם קוד כניסה? הקלידו אותו כאן<input type="password" id="accessCode" name="code" autocomplete="current-password" dir="ltr" required></label>' +
     '<div class="acts"><button class="btn primary" type="submit" value="ok">כניסה</button></div>',
@@ -867,8 +869,8 @@ async function settingsDialog() {
   const draft = { people, locations: [...S.cfg.locations], start: S.cfg.start, end: S.cfg.end, days: [...S.cfg.days], confirm: null };
   const opts = (sel, from, to) => { let o = ''; for (let m = toMin(from); m <= toMin(to); m += 30) { const t = fromMin(m); o += '<option' + (t === sel ? ' selected' : '') + '>' + t + '</option>'; } return o; };
   const waText = p => (p.role === 'consultant'
-    ? 'היי ' + p.name.split(' ')[0] + ', זה הקישור האישי שלך ללוח סלוטי המיקוד. דרכו פותחים ומעדכנים את הסלוטים שלך. כדאי לשמור אותו במועדפים: '
-    : 'היי ' + p.name.split(' ')[0] + ', זה הקישור האישי שלך ללוח סלוטי המיקוד. כל סלוט שתסמנו כנתפס יירשם על שמך. כדאי לשמור אותו במועדפים: ') + boardLink(p.token);
+    ? 'היי ' + p.name.split(' ')[0] + ', זה הקישור האישי שלך למערכת הסלוטים של פגישות המיקוד. דרכו פותחים ומעדכנים את הסלוטים שלך. כדאי לשמור אותו במועדפים: '
+    : 'היי ' + p.name.split(' ')[0] + ', זה הקישור האישי שלך למערכת הסלוטים של פגישות המיקוד. כל סלוט שתסמנו כנתפס יירשם על שמך. כדאי לשמור אותו במועדפים: ') + boardLink(p.token);
   // שמות שנערכו בטופס נשמרים בטיוטה לפני כל פעולה
   const readNames = fd => draft.people.forEach((p, i) => { const v = String(fd.get('pn' + i) || '').trim(); if (v) p.name = v; });
   const savePeople = async () => {
