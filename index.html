@@ -524,9 +524,19 @@ async function rpc(fn, args) {
   }
   return body;
 }
+/* הקוד נשאר בשורת הכתובת, כדי שהעתקה, מועדפים והוספה למסך הבית באייפון ישמרו את הקישור האישי */
+function urlCode() {
+  const h = location.hash.match(/[#&]k=([0-9a-z_-]+)/i), q = new URLSearchParams(location.search).get('k');
+  return (h ? h[1] : q || '').toLowerCase() || null;
+}
+function setUrlCode(code) {
+  const q = new URLSearchParams(location.search); q.delete('k');
+  const qs = q.toString();
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + (code ? '#k=' + code : ''));
+}
 function signOut() {
   S.code = null; S.me = null; S.ready = false; S.slots = new Map(); S.filter.cons.clear();
-  store.set('fs-code', null); render();
+  store.set('fs-code', null); setUrlCode(null); render();
 }
 function onBadCode() { signOut(); setTimeout(() => codeDialog('הקישור הזה כבר לא פעיל. בקשו ממנהל הלוח קישור חדש.')); }
 
@@ -544,7 +554,7 @@ async function load() {
 function refresh() { return load().catch(e => { console.warn(e); if (e?.network) setBanner('אין חיבור לשרת. הנתונים יתעדכנו כשהחיבור יחזור.', 'warn'); }); }
 async function signIn(code) {
   const me = await rpc('fs_login', { p_code: code });
-  S.code = code; S.me = me; store.set('fs-code', code);
+  S.code = code; S.me = me; store.set('fs-code', code); setUrlCode(code);
   S.filter.cons.clear();
   await load();
 }
@@ -1037,22 +1047,22 @@ matchMedia('(max-width:720px)').addEventListener('change', () => render());
 function tick() {
   if (document.visibilityState !== 'visible' || !S.code) return;
   if (S.me) refresh();
-  else signIn(S.code).catch(e => { if (e?.message === 'bad_code') { S.code = null; store.set('fs-code', null); codeDialog('הקישור הזה לא פעיל. בקשו ממנהל הלוח קישור חדש.'); } });
+  else enterWith(S.code);
+}
+async function enterWith(code) {
+  if (!code) return codeDialog();
+  try { await signIn(code); if (dlg.open && dlgLocked) closeDlg(); }
+  catch (e) {
+    if (e?.message === 'bad_code') { S.code = null; store.set('fs-code', null); setUrlCode(null); codeDialog('הקישור הזה לא פעיל. בקשו ממנהל הלוח קישור חדש.'); }
+    else setBanner(errMsg(e), 'warn');
+  }
 }
 setInterval(tick, POLL_MS);
 document.addEventListener('visibilitychange', tick);
+// קישור אישי אחר שנפתח באותה לשונית: נכנסים איתו בלי לרענן
+addEventListener('hashchange', () => { const c = urlCode(); if (c && c !== S.code) { S.code = c; enterWith(c); } });
 render();
-(async () => {
-  if (!CONF.url || !CONF.key) return;
-  const m = location.hash.match(/^#k=([\w-]+)$/);
-  if (m) { S.code = m[1].toLowerCase(); history.replaceState(null, '', location.pathname + location.search); }
-  if (!S.code) return codeDialog();
-  try { await signIn(S.code); }
-  catch (e) {
-    if (e?.message === 'bad_code') { S.code = null; store.set('fs-code', null); codeDialog('הקישור הזה לא פעיל. בקשו ממנהל הלוח קישור חדש.'); }
-    else setBanner(errMsg(e), 'warn');
-  }
-})();
+if (CONF.url && CONF.key) { S.code = urlCode() || S.code; enterWith(S.code); }
 </script>
 </body>
 </html>
